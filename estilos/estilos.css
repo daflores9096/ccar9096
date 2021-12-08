@@ -1,0 +1,69 @@
+body
+{
+ background-image : url(corner/mifondo.gif);
+}
+.titulo
+{
+FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+font-size: 18px;
+color:#5e8cb5
+}
+.t_titulo
+{
+font-size: 18px;
+color:#FFFFFF;
+font-weight: bold;
+background-color:#5E8CB5
+}
+.t_cuerpo
+{
+font-size: 14px;
+color:#E67F00;
+font-weight: bold;
+background-color:#F9E5CE
+}
+input
+{
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 12px;
+font-weight: normal;
+color:#000000 ;
+text-decoration: none;
+background-color:#ffffff
+}
+.boton
+{
+font-size:10px;
+font-family:Verdana,Helvetica;
+font-weight:bold;
+color:white;
+background:#6699cc;
+border:0px;
+width:80px;
+height:19px;
+}
+
+.botoncontrol
+{
+font-size:10px;
+font-family:Verdana,Helvetica;
+font-weight:bold;
+color:white;
+background:#E67F00;
+border:0px;
+width:80px;
+height:19px;
+}
+
+
+hr
+{
+width:10%;
+color:#5E8CB5
+}
+.credito
+{
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size:15px;
+color:#5E8CB5
+}
