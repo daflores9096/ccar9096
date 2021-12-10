@@ -104,8 +104,12 @@ if($cod_fac){
  $arr_imp[]=$r[6];
  }
 
+if (isset($arr_item)){
+    $total=count($arr_item);
+} else {
+    $total=0;
+}
 
- $total=count($arr_item);
 if(!$total){
 $limit=0;
 }else $limit=$total;
