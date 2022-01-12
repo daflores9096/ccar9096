@@ -70,16 +70,16 @@ $var_envio1="cod_item";
 $var_envio2="cod_fac";
 
 ///////////////recuperar datos de la factura///////////////
-$g=mysql_query("SELECT * FROM compra WHERE cod_fac=$cod_fac",$link);
-$r=mysql_fetch_array($g);
+$g=mysqli_query($link,"SELECT * FROM compra WHERE cod_fac=$cod_fac");
+$r=mysqli_fetch_array($g);
 $fecha_fac=$r[1];
 $cod_pro=$r[2];
 $nom_pro=$r[3];
 $tot_fac=$r[4];
 
 /////////////////recuperar datos de los items/////////////////////
-$a=mysql_query("SELECT * FROM compra_aux WHERE cod_fac=$cod_fac ORDER BY id",$link);
-while($r=mysql_fetch_array($a)){
+$a=mysqli_query($link,"SELECT * FROM compra_aux WHERE cod_fac=$cod_fac ORDER BY id");
+while($r=mysqli_fetch_array($a)){
 $arr_item[]=$r[2];
 $arr_cant[]=$r[3];
 $arr_pre[]=$r[4];
@@ -93,16 +93,16 @@ $limit=$total;
 //////////////recuperar nombres de los items//////////////////
 for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT nom_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT nom_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_nitem[]=$row[0];
 }
 
 /////////////////recuperar unidades de los items/////////////////////
 for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT unid_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT unid_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_unid[]=$row[0];
 }
 
@@ -130,7 +130,7 @@ $arr_color_texto=array("ffffff","000000","c4b6ff");
 <br><br><br>
 <table width="50%" bgcolor="#5E8CB5">
 <tr align="center" bgcolor="#FFFFFF">
-<?
+<?php
 echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='ver_compra.php?cod_fac=$cod_fac' class='linktab2' title=''>DETALLE COMPRA</A></td>";
 ?>
 <td bgcolor="#5E8CB5" width="50%"><font color="#ffffff" size="2" face="Courier New, Courier, mono"><b>MODIFICAR COMPRA</b></font></td>
@@ -144,7 +144,7 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='ver_compra.php?cod_
 <TABLE border="0" cellpadding="1" cellspacing="2" width="70%"> 
 <tr><td>&nbsp;</td></tr>
 <TR> 
-   <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">Nº COMPRA:</TD> 
+   <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">Nï¿½ COMPRA:</TD> 
    <td colspan="2"><INPUT TYPE="text" NAME="cod_fac" SIZE="10" MAXLENGTH="10" value="<?php echo"$cod_fac"; ?>" readonly></td>
 </TR> 
 <TR> 
@@ -200,7 +200,7 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='ver_compra.php?cod_
 
 ///////////////////////////////////////////////////////////////
 		 echo"<tr><td>&nbsp;</td></tr>";
-		 echo"<tr><td colspan=6><font size=2 color=#5E8CB5><b>Añadir item: <img src=../img/b_lista.gif onclick=JavaScript:PopWindowItem() title='Seleccionar de Lista'></b></font></td></tr>";		 
+		 echo"<tr><td colspan=6><font size=2 color=#5E8CB5><b>Aï¿½adir item: <img src=../img/b_lista.gif onclick=JavaScript:PopWindowItem() title='Seleccionar de Lista'></b></font></td></tr>";		 
 ////////////////fila de incremento de item/////////////////////
 	     echo"<tr bgcolor=$arr_color_tabla[1]>";
          echo"<td><INPUT TYPE=text NAME=cod SIZE=10></font></td>";		 
@@ -212,7 +212,7 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='ver_compra.php?cod_
 	     echo"<td><INPUT TYPE=text NAME=imp SIZE=10 MAXLENGTH=10 value=0.00 align=right readonly></td>";
    	     echo"</tr>";
 ///////////////////////////////////////////////////////////////
-       mysql_close($link);
+       mysqli_close($link);
        echo"</table>";
 ////////linea de monto total////////	   
 	   echo"
