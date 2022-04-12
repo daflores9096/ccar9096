@@ -6,7 +6,7 @@
 </head> 
 <?php 
 session_start();
-include('shield/acceso_db.php');
+include('../shield/acceso_db.php');
 
 if (isset($_SESSION['usuario_nombre'])){
 
@@ -20,8 +20,8 @@ $total=10;
 $link=Conectarse("carioca");
 $cod_fac = $_GET['cod_fac'];
 
-$get=mysql_query("SELECT * FROM venta WHERE cod_fac='$cod_fac'",$link);
-$row=mysql_fetch_array($get);
+$get=mysqli_query($link, "SELECT * FROM venta WHERE cod_fac='$cod_fac'");
+$row=mysqli_fetch_array($get);
 $fecha_fac=$row[1];
 $cod_cli=$row[2];
 $nom_cli=$row[3];
@@ -31,8 +31,8 @@ $total_fac=$row[6];
 $tot_bul=$row[7];
 
 
-$get1=mysql_query("SELECT cod_item FROM venta_aux WHERE cod_fac='$cod_fac' ORDER BY id",$link);
-while($row1=mysql_fetch_array($get1)){
+$get1=mysqli_query($link,"SELECT cod_item FROM venta_aux WHERE cod_fac='$cod_fac' ORDER BY id");
+while($row1=mysqli_fetch_array($get1)){
 $arr_cod[]=$row1[0];
 }
 
@@ -40,43 +40,43 @@ $arr_cod[]=$row1[0];
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT nom_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT nom_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_item[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT unid_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT unid_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_unid[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT bultos FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT bultos FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_bul[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT cant_fac FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT cant_fac FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_cant[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT importe_fac FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT importe_fac FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_imp[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT precio_uni FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT precio_uni FROM venta_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_precio[]=$row[0];
    }
 
@@ -96,7 +96,7 @@ stm_aix("p0i1","p0i0",[0,"Volver a lista ventas","","",-1,-1,0,"showall_ventas.p
 stm_aix("p0i2","p0i0",[0,"Imprimir","","",-1,-1,0,"","_self","","","","",0,0,0,"arrow_r.gif","arrow_r.gif",7,7]);
 stm_bpx("p1","p0",[1,4,0,0,3,4,0,0,100,"",-2,"",-2,90,0,0,"#000000","#F1F2EE"]);
 stm_aix("p1i0","p0i0",[0,"Nota de Venta","","",-1,-1,0,"print_nota_venta.php?cod_fac=<? echo $cod_fac ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
-stm_aix("p1i0","p0i0",[0,"Nota de Venta (MOD)","","",-1,-1,0,"print_nota_venta2.php?cod_fac=<? echo $cod_fac ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
+stm_aix("p1i0","p0i0",[0,"Nota de Venta (MOD)","","",-1,-1,0,"print_nota_venta2.php?cod_fac=<?php echo $cod_fac ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 //stm_aix("p1i1","p1i0",[0,"Lista de Precios","","",-1,-1,0,"print_lista_precio.php"]);
 //stm_aix("p1i2","p1i0",[0,"Insumos Escasos","","",-1,-1,0,"show_insum_escasos.php"]);
 //stm_aix("p1i3","p1i0",[0,"Insumos Excedentes","","",-1,-1,0,"show_insum_exced.php"]);
@@ -117,7 +117,7 @@ stm_em();
     if ($_SESSION['nivel_acceso'] == 1){//restringir modificar venta
 echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='modificar_datos_venta.php?cod_fac=$cod_fac' class='linktab2' title=''>MODIFICAR VENTA</A></td>";
     } else {
-        //no mostrar pestaña de modificar venta
+        //no mostrar pestaï¿½a de modificar venta
     }
 ?>
 </tr>
@@ -134,15 +134,15 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='modificar_datos_ven
 <TABLE border="0" cellpadding="1" cellspacing="2" width="70%"> 
 <TR> 
        <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">Nro VENTA:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="cod_fac" SIZE="10" MAXLENGTH="10" value="<? echo"$cod_fac"; ?>" readonly></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="cod_fac" SIZE="10" MAXLENGTH="10" value="<?php echo"$cod_fac"; ?>" readonly></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">FECHA:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="fecha_fac" SIZE="10" MAXLENGTH="10" value="<? echo"$fecha_fac"; ?>" readonly></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="fecha_fac" SIZE="10" MAXLENGTH="10" value="<?php echo"$fecha_fac"; ?>" readonly></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">CLIENTE:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="cod_cli" SIZE="1" MAXLENGTH="5" value="<? echo"$cod_cli"; ?>" readonly>&nbsp;<INPUT TYPE="text" NAME="nom_cli" SIZE="33" MAXLENGTH="50" value="<? echo"$nom_cli"; ?>" readonly></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="cod_cli" SIZE="1" MAXLENGTH="5" value="<?php echo"$cod_cli"; ?>" readonly>&nbsp;<INPUT TYPE="text" NAME="nom_cli" SIZE="33" MAXLENGTH="50" value="<?php echo"$nom_cli"; ?>" readonly></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">DIRECCION:</TD> 
@@ -150,14 +150,14 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='modificar_datos_ven
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">TRASPASO:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="traspaso" SIZE="100" MAXLENGTH="100" value="<? echo"$traspaso"; ?>" readonly></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="traspaso" SIZE="100" MAXLENGTH="100" value="<?php echo"$traspaso"; ?>" readonly></td>
 </TR> 
 </TABLE>
 <br>
 <!-- inicio -->
 <table width="20%">
 <tr>
-<td bgcolor="#ffffff" width="33%" colspan="3"><font color="5E8CB5" size="2" face="Courier New, Courier, mono"><b><? echo"$limit"; ?> ARTICULOS</td>
+<td bgcolor="#ffffff" width="33%" colspan="3"><font color="5E8CB5" size="2" face="Courier New, Courier, mono"><b><?php echo"$limit"; ?> ARTICULOS</td>
 </tr>
 </table>
 <?php
@@ -192,7 +192,7 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='modificar_datos_ven
          echo"<td align=right><font size=2 color=$arr_color_texto[1]>$arr_imp[$c]</font></td>";		 		 		 		 
    	     echo"</tr>";
 	   }
-       mysql_close($link);
+       mysqli_close($link);
   	   echo"<tr><td>&nbsp;</td></tr>";//linea en blanco inferior	   
        echo"</table>";
 	   

@@ -90,8 +90,8 @@ $pag_proceso="quitar_item.php";
 $var_envio1="cod_item";
 $var_envio2="cod_fac";
 
-$g=mysql_query("SELECT * FROM venta WHERE cod_fac=$cod_fac",$link);
-$r=mysql_fetch_array($g);
+$g=mysqli_query($link, "SELECT * FROM venta WHERE cod_fac=$cod_fac");
+$r=mysqli_fetch_array($g);
 $fecha_fac=$r[1];
 $cod_cli=$r[2];
 $nom_cli=$r[3];
@@ -100,8 +100,8 @@ $traspaso=$r[5];
 $tot_fac=$r[6];
 $tot_bul=$r[7];
 
-$a=mysql_query("SELECT * FROM venta_aux WHERE cod_fac=$cod_fac ORDER BY id",$link);
-while($r=mysql_fetch_array($a)){
+$a=mysqli_query($link, "SELECT * FROM venta_aux WHERE cod_fac=$cod_fac ORDER BY id");
+while($r=mysqli_fetch_array($a)){
 $arr_item[]=$r[2];
 $arr_bul[]=$r[3];
 $arr_cant[]=$r[4];
@@ -114,29 +114,29 @@ $limit=$total;
 
 for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT nom_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT nom_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_nitem[]=$row[0];
 }
 
 for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT unid_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT unid_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_unid[]=$row[0];
 }
 
  for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT caja_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT caja_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_caja[]=$row[0];
  }
 
  for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT precio_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link, "SELECT precio_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_precio[]=$row[0];
  }
 
@@ -265,7 +265,7 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='ver_venta.php?cod_f
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-       mysql_close($link);
+       mysqli_close($link);
        echo"</table>";
 if (!$tot_bul){
     $tot_bul = 0;
