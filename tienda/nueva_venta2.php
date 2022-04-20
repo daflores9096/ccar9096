@@ -84,8 +84,19 @@ include("../lib/lib_consulta.php");
 include("../lib/lib_formato.php");
 
 $link = Conectarse("carioca");
-$cod_fac = $_GET['cod_fac'];
-$fecha = $_GET['fecha_fac'];
+
+if (isset($_GET['cod_fac'])){
+    $cod_fac=$_GET['cod_fac'];
+} else {
+    $cod_fac="";
+}
+
+if (isset($_GET['fecha_fac'])){
+    $fecha=$_GET['fecha_fac'];
+} else {
+    $fecha=date("Y-m-d");
+}
+
 $pag_proceso = "quitar_item2.php";
 $var_envio1 = "cod_item";
 $var_envio2 = "cod_fac";
@@ -96,8 +107,8 @@ $fecha_fac = $fecha;
 }
 
 if($cod_fac){
- $g=mysql_query("SELECT * FROM venta WHERE cod_fac='".$cod_fac."'",$link);
- $r=mysql_fetch_array($g);
+ $g=mysqli_query($link,"SELECT * FROM venta WHERE cod_fac='".$cod_fac."'");
+ $r=mysqli_fetch_array($g);
  $fecha_fac=$r[1];
  $cod_cli=$r[2];
  $nom_cli=$r[3];
@@ -106,8 +117,8 @@ if($cod_fac){
  $tot_fac=$r[6];
  $tot_bul=$r[7];
 
- $a=mysql_query("SELECT * FROM venta_aux WHERE cod_fac='".$cod_fac."' ORDER BY id",$link);
- while($r=mysql_fetch_array($a)){
+ $a=mysqli_query($link,"SELECT * FROM venta_aux WHERE cod_fac='".$cod_fac."' ORDER BY id");
+ while($r=mysqli_fetch_array($a)){
  $arr_item[]=$r[2];
  $arr_bul[]=$r[3];
  $arr_cant[]=$r[4];
@@ -120,33 +131,41 @@ if($cod_fac){
 
  for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT nom_item FROM item WHERE cod_item='".$tmp."'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT nom_item FROM item WHERE cod_item='".$tmp."'");
+   $row=mysqli_fetch_array($get);
    $arr_nitem[]=$row[0];
  }
 
  for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT unid_item FROM item WHERE cod_item='".$tmp."'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT unid_item FROM item WHERE cod_item='".$tmp."'");
+   $row=mysqli_fetch_array($get);
    $arr_unid[]=$row[0];
  }
 
  for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT caja_item FROM item WHERE cod_item='".$tmp."'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT caja_item FROM item WHERE cod_item='".$tmp."'");
+   $row=mysqli_fetch_array($get);
    $arr_caja[]=$row[0];
  }
 
  for($i=0;$i<$limit;$i++){
    $tmp=$arr_item[$i];
-   $get=mysql_query("SELECT precio_item FROM item WHERE cod_item='".$tmp."'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT precio_item FROM item WHERE cod_item='".$tmp."'");
+   $row=mysqli_fetch_array($get);
    $arr_precio[]=$row[0];
  }
 
-}else{}
+}else{
+    $nom_cli = '';
+    $dire_cli = '';
+    $cod_cli = '';
+    $traspaso = '';
+    $tot_bul = 0;
+    $tot_fac = 0;
+    $limit = 0;
+}
 
 $arr_color_tabla=array("5e8cb5","ffffff","ffffff","5e8cb5");
 $arr_color_texto=array("ffffff","000000","c4b6ff");
@@ -270,7 +289,7 @@ echo"</tr>";
 
 ///////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////
-       mysql_close($link);
+       mysqli_close($link);
        echo"</table>";
 
 if (!$tot_bul){

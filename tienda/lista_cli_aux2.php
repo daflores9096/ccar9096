@@ -45,13 +45,13 @@ $pp=$tam_pag;
 if (isset($_GET['orderby'])){
     $orderby= $_GET['orderby'];
 } else {
-    $orderby= "fecha_fac";
+    $orderby= "nom_cli";
 }
 
 if (isset($_GET['orden'])){
     $orde = $_GET['orden'];
 } else {
-    $orden = "DESC";
+    $orden = "ASC";
 }
 
 $lado="left";
@@ -89,7 +89,7 @@ $row=mysqli_fetch_array($get);
 	  
 //llamada a base de datos
 
-	$get = mysqli_query($link, 'select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
+	$get1 = mysqli_query($link, 'select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
 	echo"<TABLE CELLSPACING=0 CELLPADDING=0 align=center width=100% bgcolor=$arr_color_tabla[2] rules=cols frame=vsides bordercolor=#5e8cb5>
      <tr bgcolor=$arr_color_tabla[0]>";
      for($c=0;$c<$num;$c++){
@@ -105,7 +105,7 @@ $row=mysqli_fetch_array($get);
      echo"<td width=5%><font color=$arr_color_texto[2] size=1><b>$funcion</font></td>";
 	 echo"</tr>";
 	   
-	   while($row = mysqli_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get1)) {
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 		 for($i=0;$i<$num;$i++){
 		 $cam=$arr_campos[$i];
@@ -135,7 +135,7 @@ $row=mysqli_fetch_array($get);
 /////////////////////////////////////////////
    	     echo"</tr>";
 	   }
-       mysqli_free_result($get);
+       mysqli_free_result($get1);
        mysqli_close($link);
        echo"</table><br>";
 
