@@ -2,6 +2,10 @@
 //////////////////////////////////////////////////////////////////////////////////////
 function paginacion_orden($total,$pp,$st,$url,$orderby='',$orden='',$extra='') {
 
+$page_nav = "";
+$page_first = "";
+$page_previous = "";
+
 if($total>$pp) {
 $resto=$total%$pp;
 if($resto==0) {

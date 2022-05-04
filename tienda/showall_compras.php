@@ -93,7 +93,7 @@ if (isset($_GET['orderby'])){
 }
 
 if (isset($_GET['orden'])){
-    $orde = $_GET['orden'];
+    $orden = $_GET['orden'];
 } else {
     $orden = "DESC";
 }

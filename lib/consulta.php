@@ -14,13 +14,13 @@
 function consulta_field($db, $tabla,$orderby='', $arr_campos, $arr_titulos, $color1='', $color2=''){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla ORDER BY $orderby",$link); 
+   $result=mysqli_query($link,"SELECT * FROM $tabla ORDER BY $orderby");
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
-   $fd0=mysql_field_name($result,0);
-   $fd1=mysql_field_name($result,1);
-   $fd2=mysql_field_name($result,2);
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
+   $fd0=mysqli_field_name($result,0);
+   $fd1=mysqli_field_name($result,1);
+   $fd2=mysqli_field_name($result,2);
 //   $fd3=mysql_field_name($result,3);      
    $cont=0;
 //   echo"Num Registros: $numreg <br>"; 
@@ -38,7 +38,7 @@ function consulta_field($db, $tabla,$orderby='', $arr_campos, $arr_titulos, $col
 	   echo"<td align=center><font color=ffffff size=2><b>$campo_titulo</font></td>";
 	   }
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1>";
 		 for($i=0;$i<$num;$i++){
@@ -57,8 +57,8 @@ function consulta_field($db, $tabla,$orderby='', $arr_campos, $arr_titulos, $col
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -76,10 +76,10 @@ function consulta_field($db, $tabla,$orderby='', $arr_campos, $arr_titulos, $col
 function consulta_modificar($db, $tabla, $pag_del, $pag_mod, $color1='', $color2=''){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla",$link); 
+   $result=mysqli_query($link,"SELECT * FROM $tabla");
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
    $cont=0;
    if ($numreg==0){
    echo"
@@ -92,21 +92,21 @@ function consulta_modificar($db, $tabla, $pag_del, $pag_mod, $color1='', $color2
        echo"<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=2 align=center width=90%>
 	   <tr bgcolor=6699CC>";
 	   for($c=0;$c<$numcam;$c++){
-	   $campo_titulo=mysql_field_name($result,$c);
+	   $campo_titulo=mysqli_field_name($result,$c);
 	   $arr_campos[]=$campo_titulo;
 	   echo"<td align=center><font color=ffffff size=3><b>$campo_titulo</font></td>";
 	   }
 	   echo"<td width=5%><font color=yellow size=1><b>borrar</font></td>";
 	   echo"<td width=5%><font color=yellow size=1><b>modif</font></td>";
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1 onMouseOver=uno(this,'FFFFDD'); onMouseOut=dos(this,'$color1');>";
 		 for($i=0;$i<$numcam;$i++){
 		 $cam=$arr_campos[$i];
 	     echo"<td><font size=2>$row[$cam]</font></td>";
 		 }
-		 $id=mysql_field_name($result,0);
+		 $id=mysqli_field_name($result,0);
 		 printf("<td align=center><a href=\"$pag_del?$id=%s\"><IMG SRC=../img/b_borrar.png BORDER=0 ALT=Borrar></a></td>
 			  ", $row[$id], $row[$id]);
 		 printf("<td align=center><a href=\"$pag_mod?$id=%s\"><IMG SRC=../img/b_edit.png BORDER=0 ALT=Modificar></a></td>
@@ -119,7 +119,7 @@ function consulta_modificar($db, $tabla, $pag_del, $pag_mod, $color1='', $color2
 		 $cam=$arr_campos[$i];
 	     echo"<td><font size=2>$row[$cam]</font></td>";
 		 }
-		 $id=mysql_field_name($result,0);		 
+		 $id=mysqli_field_name($result,0);
 		 printf("<td align=center><a href=\"$pag_del?$id=%s\"><IMG SRC=../img/b_borrar.png BORDER=0 ALT=Borrar></a></td>
 			  ", $row[$id], $row[$id]);
 		 printf("<td align=center><a href=\"$pag_mod?$id=%s\"><IMG SRC=../img/b_edit.png BORDER=0 ALT=Modificar></a></td>
@@ -128,8 +128,8 @@ function consulta_modificar($db, $tabla, $pag_del, $pag_mod, $color1='', $color2
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -147,10 +147,10 @@ function consulta_modificar($db, $tabla, $pag_del, $pag_mod, $color1='', $color2
 function consulta_modificar_orderby($db, $tabla, $orderby, $pag_del, $pag_mod, $color1='', $color2=''){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla ORDER BY $orderby",$link); 
+   $result=mysqli_query($link,"SELECT * FROM $tabla ORDER BY $orderby");
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
    $cont=0;
    if ($numreg==0){
    echo"
@@ -163,21 +163,21 @@ function consulta_modificar_orderby($db, $tabla, $orderby, $pag_del, $pag_mod, $
        echo"<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=2 align=center width=90%>
 	   <tr bgcolor=6699CC>";
 	   for($c=0;$c<$numcam;$c++){
-	   $campo_titulo=mysql_field_name($result,$c);
+	   $campo_titulo=mysqli_field_name($result,$c);
 	   $arr_campos[]=$campo_titulo;
 	   echo"<td align=center><font color=ffffff size=3><b>$campo_titulo</font></td>";
 	   }
 	   echo"<td width=5%><font color=yellow size=1><b>borrar</font></td>";
 	   echo"<td width=5%><font color=yellow size=1><b>modif</font></td>";
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1 onMouseOver=uno(this,'FFFFDD'); onMouseOut=dos(this,'$color1');>";
 		 for($i=0;$i<$numcam;$i++){
 		 $cam=$arr_campos[$i];
 	     echo"<td><font size=2>$row[$cam]</font></td>";
 		 }
-		 $id=mysql_field_name($result,0);
+		 $id=mysqli_field_name($result,0);
 		 printf("<td align=center><a href=\"$pag_del?$id=%s\"><IMG SRC=../img/b_borrar.png BORDER=0 ALT=Borrar></a></td>
 			  ", $row[$id], $row[$id]);
 		 printf("<td align=center><a href=\"$pag_mod?$id=%s\"><IMG SRC=../img/b_edit.png BORDER=0 ALT=Modificar></a></td>
@@ -190,7 +190,7 @@ function consulta_modificar_orderby($db, $tabla, $orderby, $pag_del, $pag_mod, $
 		 $cam=$arr_campos[$i];
 	     echo"<td><font size=2>$row[$cam]</font></td>";
 		 }
-		 $id=mysql_field_name($result,0);		 
+		 $id=mysqli_field_name($result,0);
 		 printf("<td align=center><a href=\"$pag_del?$id=%s\"><IMG SRC=../img/b_borrar.png BORDER=0 ALT=Borrar></a></td>
 			  ", $row[$id], $row[$id]);
 		 printf("<td align=center><a href=\"$pag_mod?$id=%s\"><IMG SRC=../img/b_edit.png BORDER=0 ALT=Modificar></a></td>
@@ -199,8 +199,8 @@ function consulta_modificar_orderby($db, $tabla, $orderby, $pag_del, $pag_mod, $
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -222,15 +222,15 @@ function gen_conf_del($db, $tb, $indcom, $indtb, $pag_del, $pag_back){
    echo"<center><font size=3 color=red><b>¿Esta seguro que desea eliminar el siguiente registro?</center>";  
    echo"<BR><BR>";
 
-   $result=mysql_query("SELECT * FROM $tb WHERE $indtb='$indcom'",$link); 
-   $row=mysql_fetch_array($result);
-   $numcam=mysql_num_fields($result);  
-   $field=mysql_field_name($result,0);
+   $result=mysqli_query($link,"SELECT * FROM $tb WHERE $indtb='$indcom'");
+   $row=mysqli_fetch_array($result);
+   $numcam=mysqli_num_fields($result);
+   $field=mysqli_field_name($result,0);
 
 echo"<form method=get action=$pag_del>";
 echo"<table border=0 cellpadding=1 cellspacing=2 align=center width=40%>";
    for($i=0;$i<$numcam;$i++){
-   $fld=mysql_field_name($result,$i);
+   $fld=mysqli_field_name($result,$i);
    echo"<tr>";
    echo"<td bgcolor=5e8cb5 width=30%><font color=ffffff size=2><b>$fld:</font></td>";
    echo"<td bgcolor=ebf3f7 width=70%>$row[$i]</td>";
@@ -274,15 +274,15 @@ function gen_form_edit($db, $tb, $indcom, $indtb, $pag_mod, $pag_back){
    echo"<center><font size=3 color=red><b>Modificar los datos del registro</center>";  
    echo"<BR><BR>";
 
-   $result=mysql_query("SELECT * FROM $tb WHERE $indtb='$indcom'",$link); 
-   $row=mysql_fetch_array($result);
-   $numcam=mysql_num_fields($result);  
-   $field=mysql_field_name($result,0);
+   $result=mysqli_query($link,"SELECT * FROM $tb WHERE $indtb='$indcom'");
+   $row=mysqli_fetch_array($result);
+   $numcam=mysqli_num_fields($result);
+   $field=mysqli_field_name($result,0);
 
    echo"<table border=0 cellpadding=1 cellspacing=2 align=center>";
    echo"<form method=get action=$pag_mod>";
    for($i=0;$i<$numcam;$i++){
-   $fld=mysql_field_name($result,$i);
+   $fld=mysqli_field_name($result,$i);
    echo"<tr>";
    echo"<td bgcolor=5e8cb5 width=20%><font color=ffffff size=2><b>$fld:</font></td>";
    echo"<td bgcolor=ebf3f7><INPUT TYPE=text NAME=$fld SIZE=50 MAXLENGTH=50 value='$row[$i]'></td>";
@@ -306,10 +306,10 @@ function gen_form_edit($db, $tb, $indcom, $indtb, $pag_mod, $pag_back){
 function consulta_detalle($db, $tabla, $orderby, $identificador, $pag_deta, $color1='', $color2='',$icono){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla ORDER BY $orderby",$link); 
+   $result=mysqli_query($link,"SELECT * FROM $tabla ORDER BY $orderby");
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
    $cont=0;
    if ($numreg==0){
    echo"
@@ -322,13 +322,13 @@ function consulta_detalle($db, $tabla, $orderby, $identificador, $pag_deta, $col
        echo"<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=0 align=center width=100%>
 	   <tr bgcolor=6699cc>";
 	   for($c=0;$c<$numcam;$c++){
-	   $campo_titulo=mysql_field_name($result,$c);
+	   $campo_titulo=mysqli_field_name($result,$c);
 	   $arr_campos[]=$campo_titulo;
 	   echo"<td align=center><font color=ffffff size=2><b>$campo_titulo</font></td>";
 	   }
 	   echo"<td width=5%><font color=yellow size=1><b>Detalle</font></td>";
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1 onMouseOver=uno(this,'FFFFDD'); onMouseOut=dos(this,'$color1');>";
 		 for($i=0;$i<$numcam;$i++){
@@ -355,8 +355,8 @@ function consulta_detalle($db, $tabla, $orderby, $identificador, $pag_deta, $col
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -369,10 +369,10 @@ function consulta_detalle($db, $tabla, $orderby, $identificador, $pag_deta, $col
 function consulta_funcion($db, $tabla, $orderby, $identificador, $pag_deta, $color1='', $color2='',$icono,$funcion){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla ORDER BY $orderby",$link); 
+   $result=mysqli_query($link,"SELECT * FROM $tabla ORDER BY $orderby");
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
    $cont=0;
    if ($numreg==0){
    echo"
@@ -385,13 +385,13 @@ function consulta_funcion($db, $tabla, $orderby, $identificador, $pag_deta, $col
        echo"<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=0 align=center width=100%>
 	   <tr bgcolor=6699cc>";
 	   for($c=0;$c<$numcam;$c++){
-	   $campo_titulo=mysql_field_name($result,$c);
+	   $campo_titulo=mysqli_field_name($result,$c);
 	   $arr_campos[]=$campo_titulo;
 	   echo"<td align=center><font color=ffffff size=2><b>$campo_titulo</font></td>";
 	   }
 	   echo"<td width=5%><font color=yellow size=1><b>$funcion</font></td>";
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1 onMouseOver=uno(this,'FFFFDD'); onMouseOut=dos(this,'$color1');>";
 		 for($i=0;$i<$numcam;$i++){
@@ -418,8 +418,8 @@ function consulta_funcion($db, $tabla, $orderby, $identificador, $pag_deta, $col
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -428,14 +428,14 @@ function consulta_funcion($db, $tabla, $orderby, $identificador, $pag_deta, $col
 function consulta_condicion($db, $tabla,$orderby='', $fld_campo, $cond, $arr_campos, $arr_titulos, $color1='', $color2=''){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla WHERE $fld_campo=$cond ORDER BY $orderby",$link); 
+   $result=mysqli_query(,$link,"SELECT * FROM $tabla WHERE $fld_campo=$cond ORDER BY $orderby");
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
-   $fd0=mysql_field_name($result,0);
-   $fd1=mysql_field_name($result,1);
-   $fd2=mysql_field_name($result,2);
-   $fd3=mysql_field_name($result,3);      
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
+   $fd0=mysqli_field_name($result,0);
+   $fd1=mysqli_field_name($result,1);
+   $fd2=mysqli_field_name($result,2);
+   $fd3=mysqli_field_name($result,3);
    $cont=0;
    if ($numreg==0){
    return "<tr bgcolor=$color2><td>NO EXISTE NINGUN REGISTRO</td></tr>";
@@ -448,7 +448,7 @@ function consulta_condicion($db, $tabla,$orderby='', $fld_campo, $cond, $arr_cam
 	   echo"<td align=center><font color=ffffff size=2><b>$campo_titulo</font></td>";
 	   }
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1>";
 		 for($i=0;$i<$num;$i++){
@@ -467,8 +467,8 @@ function consulta_condicion($db, $tabla,$orderby='', $fld_campo, $cond, $arr_cam
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -476,15 +476,15 @@ function consulta_condicion($db, $tabla,$orderby='', $fld_campo, $cond, $arr_cam
 function consulta_entre_fechas($db, $tabla,$orderby='', $fecha1, $fechamin,$fechamax,$arr_campos, $arr_titulos, $color1='', $color2=''){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla WHERE $fecha1>='$fechamin' AND $fecha1<='$fechamax' ORDER BY $orderby",$link);
+   $result=mysqli_query(,$link,"SELECT * FROM $tabla WHERE $fecha1>='$fechamin' AND $fecha1<='$fechamax' ORDER BY $orderby");
 //   $result=mysql_query("SELECT * FROM $tabla WHERE $fld_campo=$cond ORDER BY $orderby",$link); 
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
-   $fd0=mysql_field_name($result,0);
-   $fd1=mysql_field_name($result,1);
-   $fd2=mysql_field_name($result,2);
-   $fd3=mysql_field_name($result,3);      
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
+   $fd0=mysqli_field_name($result,0);
+   $fd1=mysqli_field_name($result,1);
+   $fd2=mysqli_field_name($result,2);
+   $fd3=mysqli_field_name($result,3);
    $cont=0;
    if ($numreg==0){
    return "<tr bgcolor=$color2><td>NO EXISTE NINGUN REGISTRO</td></tr>";
@@ -497,7 +497,7 @@ function consulta_entre_fechas($db, $tabla,$orderby='', $fecha1, $fechamin,$fech
 	   echo"<td align=center><font color=ffffff size=2><b>$campo_titulo</font></td>";
 	   }
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1>";
 		 for($i=0;$i<$num;$i++){
@@ -516,8 +516,8 @@ function consulta_entre_fechas($db, $tabla,$orderby='', $fecha1, $fechamin,$fech
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -525,11 +525,11 @@ function consulta_entre_fechas($db, $tabla,$orderby='', $fecha1, $fechamin,$fech
 function consulta_entre_fechas_detalle($db, $tabla, $orderby,$identificador,$fecha1, $fechamin,$fechamax, $pag_deta, $color1='', $color2='',$icono){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla WHERE $fecha1>='$fechamin' AND $fecha1<='$fechamax' ORDER BY $orderby",$link);
+   $result=mysqli_query(,$link),"SELECT * FROM $tabla WHERE $fecha1>='$fechamin' AND $fecha1<='$fechamax' ORDER BY $orderby");
 //   $result=mysql_query("SELECT * FROM $tabla ORDER BY $orderby",$link); 
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
    $cont=0;
    if ($numreg==0){
    echo"
@@ -542,13 +542,13 @@ function consulta_entre_fechas_detalle($db, $tabla, $orderby,$identificador,$fec
        echo"<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=0 align=center width=100%>
 	   <tr bgcolor=6699cc>";
 	   for($c=0;$c<$numcam;$c++){
-	   $campo_titulo=mysql_field_name($result,$c);
+	   $campo_titulo=mysqli_field_name($result,$c);
 	   $arr_campos[]=$campo_titulo;
 	   echo"<td align=center><font color=ffffff size=2><b>$campo_titulo</font></td>";
 	   }
 	   echo"<td width=5%><font color=yellow size=1><b>Detalle</font></td>";
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1 onMouseOver=uno(this,'FFFFDD'); onMouseOut=dos(this,'$color1');>";
 		 for($i=0;$i<$numcam;$i++){
@@ -575,8 +575,8 @@ function consulta_entre_fechas_detalle($db, $tabla, $orderby,$identificador,$fec
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
@@ -592,10 +592,10 @@ function consulta_entre_fechas_detalle($db, $tabla, $orderby,$identificador,$fec
 function consulta_2opciones($db, $tabla, $pag_1, $pag_2, $color1='', $color2=''){
    //include("../lib/conexion.php"); 
    $link=Conectarse("$db");
-   $result=mysql_query("SELECT * FROM $tabla",$link); 
+   $result=mysqli_query(,$link),"SELECT * FROM $tabla");
    $num=count($arr_campos);
-   $numreg=mysql_num_rows($result);
-   $numcam=mysql_num_fields($result); 
+   $numreg=mysqli_num_rows($result);
+   $numcam=mysqli_num_fields($result);
    $cont=0;
    if ($numreg==0){
    echo"
@@ -608,21 +608,21 @@ function consulta_2opciones($db, $tabla, $pag_1, $pag_2, $color1='', $color2='')
        echo"<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=2 align=center width=90%>
 	   <tr bgcolor=6699CC>";
 	   for($c=0;$c<$numcam;$c++){
-	   $campo_titulo=mysql_field_name($result,$c);
+	   $campo_titulo=mysqli_field_name($result,$c);
 	   $arr_campos[]=$campo_titulo;
 	   echo"<td align=center><font color=ffffff size=3><b>$campo_titulo</font></td>";
 	   }
 	   echo"<td width=5% ALIGN=CENTER><font color=#00FF00 size=1><b>ING</font></td>";
 	   echo"<td width=5% ALIGN=CENTER><font color=red size=1><b>SAL</font></td>";
 	   echo"</tr>";
-       while($row = mysql_fetch_array($result)) { 
+       while($row = mysqli_fetch_array($result)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$color1 onMouseOver=uno(this,'FFFFDD'); onMouseOut=dos(this,'$color1');>";
 		 for($i=0;$i<$numcam;$i++){
 		 $cam=$arr_campos[$i];
 	     echo"<td><font size=2>$row[$cam]</font></td>";
 		 }
-		 $id=mysql_field_name($result,0);
+		 $id=mysqli_field_name($result,0);
 		 printf("<td align=center><a href=\"$pag_1?$id=%s\"><IMG SRC=../img/ingreso.png BORDER=0 ALT=Ingreso></a></td>
 			  ", $row[$id], $row[$id]);
 		 printf("<td align=center><a href=\"$pag_2?$id=%s\"><IMG SRC=../img/salida.png BORDER=0 ALT=Salida></a></td>
@@ -635,7 +635,7 @@ function consulta_2opciones($db, $tabla, $pag_1, $pag_2, $color1='', $color2='')
 		 $cam=$arr_campos[$i];
 	     echo"<td><font size=2>$row[$cam]</font></td>";
 		 }
-		 $id=mysql_field_name($result,0);		 
+		 $id=mysqli_field_name($result,0);
 		 printf("<td align=center><a href=\"$pag_1?$id=%s\"><IMG SRC=../img/ingreso.png BORDER=0 ALT=Ingreso></a></td>
 			  ", $row[$id], $row[$id]);
 		 printf("<td align=center><a href=\"$pag_2?$id=%s\"><IMG SRC=../img/salida.png BORDER=0 ALT=Salida></a></td>
@@ -644,8 +644,8 @@ function consulta_2opciones($db, $tabla, $pag_1, $pag_2, $color1='', $color2='')
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($result); 
-       mysql_close($link);    
+       mysqli_free_result($result);
+       mysqli_close($link);
        echo"</table>";
    }
 }
