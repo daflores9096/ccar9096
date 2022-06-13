@@ -109,6 +109,9 @@ if (isset($_GET['orden'])){
     $orden = $_GET['orden'];
 }
 
+$lado="left";
+$cont=0;
+
 $row=mysqli_fetch_array($get);
    if (!$total){
    echo"

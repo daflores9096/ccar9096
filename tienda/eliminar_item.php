@@ -19,14 +19,14 @@
    $link=Conectarse("carioca"); 
    $id=$_GET['cod_item'];
    
-   mysql_query("DELETE FROM item WHERE cod_item='$id'",$link);   
+   mysqli_query($link,"DELETE FROM item WHERE cod_item='$id'");
 ?>
 
 <?=body_container_ini("","770","550")?>
 <br>
 <?=container_mensaje("Articulo eliminado")?>
 <br> 
-<?
+<?php
    echo"
    <table align=center>
    <tr>

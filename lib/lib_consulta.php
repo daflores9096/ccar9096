@@ -5,6 +5,8 @@ function paginacion_orden($total,$pp,$st,$url,$orderby='',$orden='',$extra='') {
 $page_nav = "";
 $page_first = "";
 $page_previous = "";
+$page_next = "";
+$page_last = "";
 
 if($total>$pp) {
 $resto=$total%$pp;

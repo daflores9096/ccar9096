@@ -35,10 +35,10 @@ $tam_pag=100000;
 
 $indcom=$_GET['cod_item'];
 
-$result=mysql_query("SELECT * FROM item WHERE cod_item='$indcom'",$link);
-$row=mysql_fetch_array($result);
-$numcam=mysql_num_fields($result);
-$field=mysql_field_name($result,0);
+$result=mysqli_query($link,"SELECT * FROM item WHERE cod_item='$indcom'");
+$row=mysqli_fetch_array($result);
+$numcam=mysqli_num_fields($result);
+$field=mysqli_fetch_field_direct($result,0);
 
 ?>
 <?=body_container_ini("","770","0")?>
@@ -87,9 +87,9 @@ stm_em();
 <tr>
 <td bgcolor="e1e4f2">
 <br>
-<? echo"<center><font size=6 color=#5e8cb5><b> [$row[0]] $row[1] </b></font></center>"?>
+<?php echo"<center><font size=6 color=#5e8cb5><b> [$row[0]] $row[1] </b></font></center>"?>
 <br>
-<? 
+<?php
 echo"
 <table align=center width=97% bgcolor=#ffffff>
 <tr>
@@ -101,11 +101,11 @@ echo"
 ?>
 <br>
 <!-- form inicio -->
-<?
+<?php
 $link=Conectarse("carioca");
-$get=mysql_query("SELECT * FROM movimiento WHERE cod_item='$indcom'",$link);
+$get=mysqli_query($link,"SELECT * FROM movimiento WHERE cod_item='$indcom'");
 $num=count($arr_campos);
-$total=mysql_num_rows($get);
+$total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
 $orderby= $_GET['orderby'];
@@ -143,7 +143,7 @@ $orden = $_GET['orden'];
 	  }
 	// la llamada a base de datos
 //	$get = mysql_query('select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
-	$get = mysql_query("select * from $tabla where cod_item='$indcom' order by $orderby $orden limit $st,$pp");
+	$get = mysqli_query($link,"select * from $tabla where cod_item='$indcom' order by $orderby $orden limit $st,$pp");
 
 	echo"<TABLE CELLSPACING=1 CELLPADDING=2 align=center width=98% bgcolor=$arr_color_tabla[2] rules=cols frame=vsides bordercolor=#c1cdd8>
      <tr bgcolor=$arr_color_tabla[0]>";
@@ -158,7 +158,7 @@ $orden = $_GET['orden'];
 	 }
 	 echo"</tr>";
 	   
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 		 for($i=0;$i<$num;$i++){
@@ -204,8 +204,8 @@ $orden = $_GET['orden'];
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 
 	if ($extra_dat=="si"){
