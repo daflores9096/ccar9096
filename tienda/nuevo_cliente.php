@@ -1,5 +1,4 @@
-<html> 
-<head> 
+<head>
 <title>CLIENTES - Registro Nuevo Cliente</title> 
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
 </head> 
@@ -8,8 +7,8 @@ include("../lib/conexion.php");
 include("../lib/lib_consulta.php");
 include("../lib/lib_formato.php");
 $link=Conectarse("carioca"); 
-$result=mysql_query("SELECT max(cod_cli) AS elmax FROM cliente",$link);
-$last_id_inv=mysql_fetch_array($result);
+$result=mysqli_query($link,"SELECT max(cod_cli) AS elmax FROM cliente");
+$last_id_inv=mysqli_fetch_array($result);
 $cod_cli=$last_id_inv[0] + 1;
 
 ?>
@@ -46,7 +45,7 @@ $cod_cli=$last_id_inv[0] + 1;
 <TABLE border="0" align="center" cellpadding="1" cellspacing="2" width="90%"> 
 <TR> 
    <TD bgcolor="#FFFFFF" width="30%"><B><font size="2" color="#5e8cb5">CODIGO:</TD> 
-   <TD colspan="2"><INPUT TYPE="text" NAME="cod_cli" SIZE="15" MAXLENGTH="10" value="<? echo"$cod_cli"; ?>"></TD> 
+   <TD colspan="2"><INPUT TYPE="text" NAME="cod_cli" SIZE="15" MAXLENGTH="10" value="<?php echo"$cod_cli"; ?>"></TD>
 </TR>
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">NOMBRE CLIENTE:</TD> 

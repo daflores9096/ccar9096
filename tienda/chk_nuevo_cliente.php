@@ -18,8 +18,8 @@
    $email_cli=$_GET['email_cli'];   
    $desc_cli=$_GET['desc_cli'];   
    
-$get=mysql_query("SELECT * FROM cliente WHERE cod_cli=$cod_cli",$link);
-$result=mysql_fetch_array($get);
+$get=mysqli_query($link,"SELECT * FROM cliente WHERE cod_cli=$cod_cli");
+$result=mysqli_fetch_array($get);
 ?>
 <?=body_container_ini("","770","550")?>
 <br>
@@ -52,8 +52,8 @@ echo"
    //$qry = "insert into cliente (cod_cli, nom_cli, contacto_sec, dire_cli, dire_sec, ciudad_cli, tel_cli, tel_sec, email_cli, desc_cli) values ('$cod_cli','$nom_cli','$contacto_sec', '$dire_cli', '$dire_sec', '$ciudad_cli', '$tel_cli', '$tel_sec', '$email_cli', '$desc_cli')";
    //echo $qry;
    //exit();
-   mysql_query("insert into cliente (cod_cli, nom_cli, contacto_sec, dire_cli, dire_sec, ciudad_cli, tel_cli, tel_sec, email_cli, desc_cli) 
-   values ('$cod_cli','$nom_cli','$contacto_sec', '$dire_cli', '$dire_sec', '$ciudad_cli', '$tel_cli', '$tel_sec', '$email_cli', '$desc_cli')",$link); 
+   mysqli_query($link,"insert into cliente (cod_cli, nom_cli, contacto_sec, dire_cli, dire_sec, ciudad_cli, tel_cli, tel_sec, email_cli, desc_cli) 
+   values ('$cod_cli','$nom_cli','$contacto_sec', '$dire_cli', '$dire_sec', '$ciudad_cli', '$tel_cli', '$tel_sec', '$email_cli', '$desc_cli')");
 
 ?>
 <?=container_mensaje("Cliente Añadido... ¿Desea añadir otro?")?>
@@ -75,5 +75,5 @@ echo"
    ";
 ?> 
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
-<? } ?>
+<?php } ?>
 <?=body_container_fin()?>

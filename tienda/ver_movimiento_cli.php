@@ -35,15 +35,17 @@ $tam_pag=100000;
 
 $indcom=$_GET['cod_cli'];
 
-$result=mysql_query("SELECT * FROM cliente WHERE cod_cli='$indcom'",$link);
-$row=mysql_fetch_array($result);
-$numcam=mysql_num_fields($result);
-$field=mysql_field_name($result,0);
+$extra_dat = "no";
+
+$result=mysqli_query($link,"SELECT * FROM cliente WHERE cod_cli='$indcom'");
+$row=mysqli_fetch_array($result);
+$numcam=mysqli_num_fields($result);
+$field=mysqli_fetch_field_direct($result,0);
 
 //////////////total compras////////////////
-$gt=mysql_query("SELECT * FROM venta WHERE cod_cli='$indcom'",$link);
+$gt=mysqli_query($link,"SELECT * FROM venta WHERE cod_cli='$indcom'");
 $total_ventas=0;
-while($rw=mysql_fetch_array($gt)){
+while($rw=mysqli_fetch_array($gt)){
   $total_ventas=$total_ventas + $rw['total_fac'];
 }
 //////////////////////////////////////////
@@ -62,7 +64,7 @@ stm_ai("p0i0",[0,"Volver a lista clientes","","",-1,-1,0,"showall_clientes.php",
 stm_aix("p0i1","p0i0",[0,"     INICIO     ","","",-1,-1,0,"../index.php"]);
 stm_aix("p0i2","p0i0",[0,"IMPRIMIR","","",-1,-1,0,"","_self","","","","",0,0,0,"arrow_r.gif","arrow_r.gif",7,7]);
 stm_bpx("p1","p0",[1,4,0,0,3,4,0,0,100,"",-2,"",-2,90,0,0,"#000000","#F1F2EE"]);
-stm_aix("p1i0","p0i0",[0,"Movimiento del Cliente","","",-1,-1,0,"print_mov_cli.php?cod_cli=<? echo $indcom?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
+stm_aix("p1i0","p0i0",[0,"Movimiento del Cliente","","",-1,-1,0,"print_mov_cli.php?cod_cli=<?php echo $indcom?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 //stm_aix("p1i0","p0i0",[0,"Lista de Precios","","",-1,-1,0,"print_lista_precio.php","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 //stm_aix("p1i1","p1i0",[0,"Lista de Precios","","",-1,-1,0,"print_lista_precio.php"]);
 //stm_aix("p1i2","p1i0",[0,"Insumos Escasos","","",-1,-1,0,"show_insum_escasos.php"]);
@@ -95,9 +97,9 @@ stm_em();
 <tr>
 <td bgcolor="e1e4f2">
 <br>
-<? echo"<center><font size=6 color=#5e8cb5><b> [$row[0]] $row[1] </b></font></center>"?>
+<?php echo"<center><font size=6 color=#5e8cb5><b> [$row[0]] $row[1] </b></font></center>"?>
 <br>
-<? 
+<?php
 echo"
 <table align=center width=97% bgcolor=#ffffff>
 <tr>
@@ -109,15 +111,22 @@ echo"
 ?>
 <br>
 <!-- form inicio -->
-<?
+<?php
 $link=Conectarse("carioca");
-$get=mysql_query("SELECT * FROM venta WHERE cod_cli=$indcom",$link);
+$get=mysqli_query($link,"SELECT * FROM venta WHERE cod_cli=$indcom");
 $num=count($arr_campos);
-$total=mysql_num_rows($get);
+$total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
+$orden = "ASC";
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+}
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+}
+$lado="left";
+$cont=0;
 //echo"codigo: $indcom";
    if (!$total){
    echo"
@@ -150,7 +159,7 @@ $orden = $_GET['orden'];
 	  $dir='<img src=../img/desc.gif border=0 valign=bottom>';
 	  }
 	// la llamada a base de datos
-	$get = mysql_query("SELECT * FROM $tabla WHERE cod_cli='$indcom' order by $orderby $orden limit $st,$pp");
+	$get = mysqli_query($link,"SELECT * FROM $tabla WHERE cod_cli='$indcom' order by $orderby $orden limit $st,$pp");
 
 	echo"<TABLE CELLSPACING=1 CELLPADDING=2 align=center width=98% bgcolor=$arr_color_tabla[2] rules=cols frame=vsides bordercolor=#c1cdd8>
      <tr bgcolor=$arr_color_tabla[0]>";
@@ -165,7 +174,7 @@ $orden = $_GET['orden'];
 	 }
 	 echo"</tr>";
 	   
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 		 for($i=0;$i<$num;$i++){
@@ -211,8 +220,8 @@ $orden = $_GET['orden'];
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 
 	if ($extra_dat=="si"){
@@ -234,7 +243,6 @@ echo"</font></center>";
 }
 
 ?>
-<?//=lista_fin()?>
 <!-- form fin -->
 <br> 
 <br>

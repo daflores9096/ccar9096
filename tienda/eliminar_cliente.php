@@ -19,14 +19,14 @@
    $link=Conectarse("carioca"); 
    $id=$_GET['cod_cli'];
    
-   mysql_query("DELETE FROM cliente WHERE cod_cli='$id'",$link);   
+   mysqli_query($link,"DELETE FROM cliente WHERE cod_cli='$id'");
 ?>
 
 <?=body_container_ini("","770","550")?>
 <br>
 <?=container_mensaje("Cliente eliminado?")?>
 <br> 
-<?
+<?php
    echo"
    <table align=center>
    <tr>
