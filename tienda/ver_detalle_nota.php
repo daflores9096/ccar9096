@@ -17,16 +17,18 @@ $cod_fac = $_GET['cod_mov'];
 $tipo = $_GET['tipo_mov'];
 
 if($tipo=='C'){
-$get=mysqli_query($link,"SELECT * FROM compra WHERE cod_fac='$cod_fac'");
+    $get=mysqli_query($link,"SELECT * FROM compra WHERE cod_fac='$cod_fac'");
+    $i = 4;
 }else{
-$get=mysqli_query($link,"SELECT * FROM venta WHERE cod_fac='$cod_fac'");
+    $get=mysqli_query($link,"SELECT * FROM venta WHERE cod_fac='$cod_fac'");
+    $i = 6;
 }
 
 $row=mysqli_fetch_array($get);
 $fecha_fac=$row[1];
 $cod_pro=$row[2];// variable utilizada tanto para cliente y proveedor
 $nom_pro=$row[3];// variable utilizada tanto para cliente y proveedor.... por no hacer un if... jejeje!!!
-$total_fac=$row[6];
+$total_fac=$row[$i];
 
 if($tipo=='C'){
 $get1=mysqli_query($link,"SELECT cod_item FROM compra_aux WHERE cod_fac='$cod_fac'");
