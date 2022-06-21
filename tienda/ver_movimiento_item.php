@@ -54,7 +54,7 @@ stm_ai("p0i0",[0,"Volver a lista artículos","","",-1,-1,0,"showall_item.php","_s
 stm_aix("p0i1","p0i0",[0,"     INICIO     ","","",-1,-1,0,"../index.php"]);
 stm_aix("p0i2","p0i0",[0,"IMPRIMIR","","",-1,-1,0,"","_self","","","","",0,0,0,"arrow_r.gif","arrow_r.gif",7,7]);
 stm_bpx("p1","p0",[1,4,0,0,3,4,0,0,100,"",-2,"",-2,90,0,0,"#000000","#F1F2EE"]);
-stm_aix("p1i0","p0i0",[0,"Movimiento del ITEM","","",-1,-1,0,"print_mov_item.php?cod_item=<? echo $row[0]; ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
+stm_aix("p1i0","p0i0",[0,"Movimiento del ITEM","","",-1,-1,0,"print_mov_item.php?cod_item=<?php echo $row[0]; ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 //stm_aix("p1i0","p0i0",[0,"Lista de Precios","","",-1,-1,0,"print_lista_precio.php","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 //stm_aix("p1i1","p1i0",[0,"Lista de Precios","","",-1,-1,0,"print_lista_precio.php"]);
 //stm_aix("p1i2","p1i0",[0,"Insumos Escasos","","",-1,-1,0,"show_insum_escasos.php"]);
@@ -108,8 +108,16 @@ $num=count($arr_campos);
 $total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
+$extra_dat = "no";
+$orden = "ASC";
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+}
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+}
+$lado="left";
+$cont=0;
 
    if (!$total){
    echo"

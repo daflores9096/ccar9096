@@ -34,20 +34,21 @@ $tam_pag=1000;
 
 $indcom=$_GET['cod_pro'];
 
-$result=mysql_query("SELECT * FROM proveedor WHERE cod_pro='$indcom'",$link);
-$row=mysql_fetch_array($result);
-$numcam=mysql_num_fields($result);
-$field=mysql_field_name($result,0);
+$result=mysqli_query($link,"SELECT * FROM proveedor WHERE cod_pro='$indcom'");
+$row=mysqli_fetch_array($result);
+$numcam=mysqli_num_fields($result);
+$field=mysqli_fetch_field_direct($result,0);
+$extra_dat="no";
 
 //////////////total compras////////////////
-$gt=mysql_query("SELECT * FROM compra WHERE cod_pro='$indcom'",$link);
+$gt=mysqli_query($link,"SELECT * FROM compra WHERE cod_pro='$indcom'");
 $total_compras=0;
-while($rw=mysql_fetch_array($gt)){
+while($rw=mysqli_fetch_array($gt)){
   $total_compras=$total_compras + $rw['total_fac'];
 }
 //////////////////////////////////////////
 ?>
-<? 
+<?php
 echo"
 <table frame=box bordercolor=#000000 align=center width=80%>
 <tr><td>
@@ -63,7 +64,7 @@ echo"
 <br>
 ";
 ?>
-<? 
+<?php
 echo"
 <table align=center width=80% bgcolor=#ffffff rules=rows frame=hsides bordercolor=#000000>
 <tr>
@@ -75,15 +76,22 @@ echo"
 ?>
 <br>
 <!-- form inicio -->
-<?
+<?php
 $link=Conectarse("carioca");
-$get=mysql_query("SELECT * FROM compra WHERE cod_pro=$indcom",$link);
+$get=mysqli_query($link,"SELECT * FROM compra WHERE cod_pro=$indcom");
 $num=count($arr_campos);
-$total=mysql_num_rows($get);
+$total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
+$orden = "ASC";
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+}
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+}
+$lado="left";
+$cont=0;
 //echo"codigo: $indcom";
    if (!$total){
    echo"
@@ -117,7 +125,7 @@ $orden = $_GET['orden'];
 	  }
 	// la llamada a base de datos
 //	$get = mysql_query('select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
-	$get = mysql_query("SELECT * FROM $tabla WHERE cod_pro='$indcom' order by $orderby $orden limit $st,$pp");
+	$get = mysqli_query($link,"SELECT * FROM $tabla WHERE cod_pro='$indcom' order by $orderby $orden limit $st,$pp");
 
 	echo"<TABLE CELLSPACING=1 CELLPADDING=2 align=center width=80% bgcolor=$arr_color_tabla[2] rules=rows frame=hsides bordercolor=#000000>
      <tr bgcolor=$arr_color_tabla[0]>";
@@ -130,7 +138,7 @@ $orden = $_GET['orden'];
 	 }
 	 echo"</tr>";
 	   
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 		 for($i=0;$i<$num;$i++){
@@ -162,8 +170,8 @@ $orden = $_GET['orden'];
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 
 	if ($extra_dat=="si"){
