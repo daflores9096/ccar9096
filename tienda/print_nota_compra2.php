@@ -1,5 +1,5 @@
-<html> 
-<head> 
+<html>
+<head>
 <title>IMPRIMIR NOTA COMPRA</title> 
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
 <script type="text/javascript" language="JavaScript1.2" src="stm31.js"></script>
@@ -32,15 +32,15 @@ echo"
 $link=Conectarse("carioca");
 $cod_fac = $_GET['cod_fac'];
 
-$get=mysql_query("SELECT * FROM compra WHERE cod_fac='$cod_fac'",$link);
-$row=mysql_fetch_array($get);
+$get=mysqli_query($link,"SELECT * FROM compra WHERE cod_fac='$cod_fac'");
+$row=mysqli_fetch_array($get);
 $fecha_fac=$row[1];
 $cod_pro=$row[2];
 $nom_pro=$row[3];
 $total_fac=$row[4];
 
-$get1=mysql_query("SELECT cod_item FROM compra_aux WHERE cod_fac='$cod_fac'",$link);
-while($row1=mysql_fetch_array($get1)){
+$get1=mysqli_query($link,"SELECT cod_item FROM compra_aux WHERE cod_fac='$cod_fac'");
+while($row1=mysqli_fetch_array($get1)){
 $arr_cod[]=$row1[0];
 }
 
@@ -48,49 +48,48 @@ $arr_cod[]=$row1[0];
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT nom_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT nom_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_item[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT unid_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT unid_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_unid[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT cant_fac FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT cant_fac FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_cant[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT importe_fac FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT importe_fac FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_imp[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT precio_uni FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT precio_uni FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_precio[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT precio_ven FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT precio_ven FROM compra_aux WHERE cod_item='$tmp' && cod_fac='$cod_fac'");
+   $row=mysqli_fetch_array($get);
    $arr_precio_ven[]=$row[0];
    }
 
 ?> 
 <table align="left" border="1" width="90%" bgcolor="#000000" rules="rows" frame="box">
-</tr>
 <tr>
 <td bgcolor="#ffffff">
 
@@ -98,11 +97,11 @@ $arr_cod[]=$row1[0];
 <TABLE border="0" cellpadding="0" cellspacing="0" width="70%"> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#000000">&nbsp;Nº COMPRA:</TD> 
-   <td colspan="2"><? echo"$cod_fac"; ?></td>
+   <td colspan="2"><?php echo"$cod_fac"; ?></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#000000">&nbsp;FECHA:</TD> 
-   <td colspan="2"><? echo"$fecha_fac"; ?></td>
+   <td colspan="2"><?php echo"$fecha_fac"; ?></td>
 </TR> 
 
 </TABLE>
@@ -110,7 +109,7 @@ $arr_cod[]=$row1[0];
 <!-- inicio -->
 <table width="20%">
 <tr>
-<td bgcolor="#ffffff" width="33%" colspan="3"><font color="#000000" size="2" face="Courier New, Courier, mono"><b><? echo"$limit"; ?> ARTICULOS</td>
+<td bgcolor="#ffffff" width="33%" colspan="3"><font color="#000000" size="2" face="Courier New, Courier, mono"><b><?php echo"$limit"; ?> ARTICULOS</td>
 </tr>
 </table>
 <?php
@@ -147,7 +146,7 @@ $arr_cod[]=$row1[0];
 //         echo"<td align=right><font size=1 color=$arr_color_texto[1]>$arr_imp[$c]&nbsp;&nbsp;</font></td>";		 		 		 		 
    	     echo"</tr>";
 	   }
-       mysql_close($link);
+       mysqli_close($link);
   	   echo"<tr><td>&nbsp;</td></tr>";//linea en blanco inferior
        echo"</table>";
 

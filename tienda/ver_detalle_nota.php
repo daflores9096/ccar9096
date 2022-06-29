@@ -39,7 +39,12 @@ while($row1=mysqli_fetch_array($get1)){
 $arr_cod[]=$row1[0];
 }
 
-   $limit=count($arr_cod);
+if (empty($arr_cod)){
+    $limit=0;
+} else {
+    $limit=count($arr_cod);
+}
+
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];

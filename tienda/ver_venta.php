@@ -95,7 +95,7 @@ stm_ai("p0i0",[0,"      INICIO      ","","",-1,-1,0,"../index.php","_self","",""
 stm_aix("p0i1","p0i0",[0,"Volver a lista ventas","","",-1,-1,0,"showall_ventas.php"]);
 stm_aix("p0i2","p0i0",[0,"Imprimir","","",-1,-1,0,"","_self","","","","",0,0,0,"arrow_r.gif","arrow_r.gif",7,7]);
 stm_bpx("p1","p0",[1,4,0,0,3,4,0,0,100,"",-2,"",-2,90,0,0,"#000000","#F1F2EE"]);
-stm_aix("p1i0","p0i0",[0,"Nota de Venta","","",-1,-1,0,"print_nota_venta.php?cod_fac=<? echo $cod_fac ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
+stm_aix("p1i0","p0i0",[0,"Nota de Venta","","",-1,-1,0,"print_nota_venta.php?cod_fac=<?php echo $cod_fac ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 stm_aix("p1i0","p0i0",[0,"Nota de Venta (MOD)","","",-1,-1,0,"print_nota_venta2.php?cod_fac=<?php echo $cod_fac ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 //stm_aix("p1i1","p1i0",[0,"Lista de Precios","","",-1,-1,0,"print_lista_precio.php"]);
 //stm_aix("p1i2","p1i0",[0,"Insumos Escasos","","",-1,-1,0,"show_insum_escasos.php"]);
