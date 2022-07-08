@@ -1,5 +1,4 @@
-<html> 
-<head> 
+<head>
 <title>INVENTARIO FISICO</title> 
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
 <script type="text/javascript" language="JavaScript" src="calendario/calendar.js"></script>
@@ -48,8 +47,8 @@ $pag_ini="nuevo_inventario.php";
 $tam_pag=1000;
 /////////////////////////////////////////////////
 $link=Conectarse("$db"); 
-$result=mysql_query("SELECT max(id_inv) AS elmax FROM inventario",$link);
-$last_id_inv=mysql_fetch_array($result);
+$result=mysqli_query($link,"SELECT max(id_inv) AS elmax FROM inventario");
+$last_id_inv=mysqli_fetch_array($result);
 $id_inv=$last_id_inv[0] + 1;
 $ultimafecha=date("20y-m-d");
 ?>
@@ -86,7 +85,7 @@ $ultimafecha=date("20y-m-d");
 <TABLE border="0" cellpadding="1" cellspacing="2" width="90%"> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">CODIGO:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="id_inv" SIZE="10" MAXLENGTH="10" value="<? echo"$id_inv"; ?>"></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="id_inv" SIZE="10" MAXLENGTH="10" value="<?php echo"$id_inv"; ?>"></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">FECHA LEVANTAMIENTO:</TD> 
@@ -108,13 +107,22 @@ $ultimafecha=date("20y-m-d");
 </table>
 <?php
 //function consulta_pagina_funcion2box($db, $tabla,$orderby='', $arr_campos='', $arr_titulos, $arr_color_tabla='', $arr_color_texto='', $var_envio1, $var_envio2, $pag_proceso1, $pag_proceso2, $pag_proceso3, $icono1, $icono2, $funcion1, $funcion2,$pag_ini,$tam_pag){
-$get=mysql_query("SELECT * FROM $tabla",$link);
+$get=mysqli_query($link,"SELECT * FROM $tabla");
 $num=count($arr_campos);
-$total=mysql_num_rows($get);
+$total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+} else {
+    $orderby= "nom_item";
+}
+
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+} else {
+    $orden = "ASC";
+}
 $cont=0;
 
    if (!$total){
@@ -148,7 +156,7 @@ $cont=0;
 	// la llamada a base de datos
 
 //	$get = mysql_query('select * from '.$tabla.' order by '.$orderby.' limit '.$st.','.$pp);
-	$get = mysql_query('select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
+	$get = mysqli_query($link,'select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
 
 	echo"<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0 width=95% bgcolor=$arr_color_tabla[2] rules=cols frame=hsides bordercolor=#c1cdd8>
      <tr bgcolor=$arr_color_tabla[0]>";
@@ -166,7 +174,7 @@ $cont=0;
       }	 }
 	 echo"</tr>";
 	   
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 /*line*/ echo"<td align=center><input type=checkbox name=id$cont value=$row[$var_envio1]></td>";
@@ -191,8 +199,8 @@ $cont=0;
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 
 echo"<center> <font size=2 color=$arr_color_texto[2]>"; 

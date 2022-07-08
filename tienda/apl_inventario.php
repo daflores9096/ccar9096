@@ -25,8 +25,8 @@
 //capturar las existencias del sistema
    for($i=0;$i<$numreg;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT existencia FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT existencia FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_exis[]=$row[0];
    }
 //capturar las existencias reales del inventario fisico
@@ -41,10 +41,10 @@
    }
 
    for($i=0;$i<$numreg;$i++){
-   mysql_query("UPDATE item SET existencia=$arr_cant[$i] WHERE cod_item='$arr_cod[$i]'",$link); 
+   mysqli_query($link,"UPDATE item SET existencia=$arr_cant[$i] WHERE cod_item='$arr_cod[$i]'");
    }
 
-   mysql_query("UPDATE inventario SET fecha_ap='$fecha_ap', estado='$estado' WHERE id_inv=$id_inv",$link); 
+   mysqli_query($link,"UPDATE inventario SET fecha_ap='$fecha_ap', estado='$estado' WHERE id_inv=$id_inv");
 /*
    mysql_query("insert into inventario (id_inv, fecha_lev, descripcion, fecha_ap, estado) 
    values ('$id_inv', '$fecha_lev', '$descripcion', '$fecha_ap', '$estado')",$link); 
@@ -69,12 +69,6 @@ echo"numreg: $numreg <br>";
 ?>
 <?=body_container_ini("","770","0")?>
 <br><br>
-
-<?
-/*   for($i=0;$i<$numreg;$i++){
-	echo"Guardando: $arr_cod[$i] --- $arr_cant[$i] --- $arr_exis[$i] --- $arr_dif[$i] <br>";   
-   }*/
-?>
 
 <?=container_mensaje("Inventario Fisico Aplicado")?>
 <br>

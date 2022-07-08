@@ -18,8 +18,8 @@ include("../lib/conexion.php");
 include("../lib/lib_consulta.php"); 
 include("../lib/lib_formato.php");
 $id_inv = $_GET['id_inv'];
-$fecha_lev = $_GET['fecha_lev'];
-$descripcion = $_GET['descripcion'];
+//$fecha_lev = $_GET['fecha_lev'];
+//$descripcion = $_GET['descripcion'];
 
 
 $db="carioca";
@@ -38,8 +38,8 @@ $tam_pag=50;
 
 $link=Conectarse("$db");
 
-$get1=mysql_query("SELECT * FROM inventario WHERE id_inv=$id_inv",$link);
-$r=mysql_fetch_array($get1);
+$get1=mysqli_query($link,"SELECT * FROM inventario WHERE id_inv=$id_inv");
+$r=mysqli_fetch_array($get1);
 $cod=$r[0];
 $fecha_lev=$r[1];
 $descripcion=$r[2];
@@ -59,7 +59,7 @@ stm_ai("p0i0",[0,"  &lt;&lt; Atras   ","","",-1,-1,0,"showall_inventarios.php","
 stm_aix("p0i1","p0i0",[0,"       Inicio      ","","",-1,-1,0,"../index.php"]);
 stm_aix("p0i2","p0i0",[0,"Reportes","","",-1,-1,0,"","_self","","","","",0,0,0,"arrow_r.gif","arrow_r.gif",7,7]);
 stm_bpx("p1","p0",[1,4,0,0,3,4,0,0,100,"",-2,"",-2,90,0,0,"#000000","#F1F2EE"]);
-stm_aix("p1i0","p0i0",[0,"Listado para Levantamiento","","",-1,-1,0,"reporte_inventario.php?id_inv=<? echo $id_inv?>&fecha_lev=<? echo $fecha_lev?>&descripcion=<? echo $descripcion?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
+stm_aix("p1i0","p0i0",[0,"Listado para Levantamiento","","",-1,-1,0,"reporte_inventario.php?id_inv=<?php echo $id_inv?>&fecha_lev=<?php echo $fecha_lev?>&descripcion=<?php echo $descripcion?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 stm_ep();
 stm_ep();
 stm_em();
@@ -73,7 +73,7 @@ stm_em();
 <table width="45%" bgcolor="#5E8CB5">
 <tr align="center" bgcolor="#FFFFFF">
 <td bgcolor="#5E8CB5" width="33%"><font color="ffffff" size="2" face="Courier New, Courier, mono"><b>INVENTARIO PENDIENTE</td>
-<td width="33%"><A href="aplicar_inventario.php?id_inv=<? echo"$id_inv";?>&fecha_lev=<? echo"$fecha_lev";?>&descripcion=<? echo"$descripcion";?>" class="linktab">APLICAR INVENTARIO</A></td>
+<td width="33%"><A href="aplicar_inventario.php?id_inv=<?php echo"$id_inv";?>&fecha_lev=<?php echo"$fecha_lev";?>&descripcion=<?php echo"$descripcion";?>" class="linktab">APLICAR INVENTARIO</A></td>
 </tr>
 </table>
 
@@ -91,15 +91,15 @@ stm_em();
 <TABLE border="0" cellpadding="1" cellspacing="2" width="70%"> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">CODIGO:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="id_inv" SIZE="10" MAXLENGTH="10" value="<? echo"$id_inv"; ?>" disabled style="background-color:#FFFFFF "></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="id_inv" SIZE="10" MAXLENGTH="10" value="<?php echo"$id_inv"; ?>" disabled style="background-color:#FFFFFF "></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">FECHA LEVANTAMIENTO:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="fecha_lev" SIZE="10" MAXLENGTH="10" value="<? echo"$fecha_lev"; ?>" disabled style="background-color:#FFFFFF "></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="fecha_lev" SIZE="10" MAXLENGTH="10" value="<?php echo"$fecha_lev"; ?>" disabled style="background-color:#FFFFFF "></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">DESCRIPCION:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="descripcion" SIZE="40" MAXLENGTH="40" value="<? echo"$descripcion"; ?>" disabled style="background-color:#FFFFFF "></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="descripcion" SIZE="40" MAXLENGTH="40" value="<?php echo"$descripcion"; ?>" disabled style="background-color:#FFFFFF "></td>
 </TR> 
 
 </TABLE>
@@ -112,19 +112,31 @@ stm_em();
 <!-- inicio -->
 <?php
 /////////////////////////////////////////ini/////////////////////////////////////////
-$get1=mysql_query("SELECT * FROM inventario WHERE id_inv=$id_inv",$link);
-$get2=mysql_query("SELECT item.cod_item, item.nom_item, inventario_aux.existencia_inv 
+$get1=mysqli_query($link,"SELECT * FROM inventario WHERE id_inv=$id_inv");
+$get2=mysqli_query($link,"SELECT item.cod_item, item.nom_item, inventario_aux.existencia_inv 
 				   FROM item,inventario_aux 
 				   WHERE inventario_aux.id_inv=$id_inv && item.cod_item=inventario_aux.cod_item
  				   ORDER BY item.nom_item"
-				   ,$link);
+				   );
 $num=count($arr_campos);
-$total1=mysql_num_rows($get1);
-$total2=mysql_num_rows($get2);
+$total1=mysqli_num_rows($get1);
+$total2=mysqli_num_rows($get2);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+} else {
+    $orderby= "cod_item";
+}
+
+if (isset($_GET['orden'])){
+    $orde = $_GET['orden'];
+} else {
+    $orden = "DESC";
+}
+
+$lado="left";
+$cont=0;
 
    if (!$total2){
    echo"
@@ -143,11 +155,11 @@ $orden = $_GET['orden'];
 		}
 
 	// la llamada a base de datos
-	$get = mysql_query("SELECT item.cod_item, item.nom_item, item.unid_item,inventario_aux.existencia_inv 
+	$get = mysqli_query($link,"SELECT item.cod_item, item.nom_item, item.unid_item,inventario_aux.existencia_inv 
 						FROM item,inventario_aux 
 						WHERE inventario_aux.id_inv=$id_inv && item.cod_item=inventario_aux.cod_item
 						ORDER BY item.nom_item limit $st,$pp");
-	$numreg=mysql_num_rows($get);
+	$numreg=mysqli_num_rows($get);
 
 	echo"<TABLE BORDER=0 CELLSPACING=1 CELLPADDING=2 align=center width=100% bgcolor=$arr_color_tabla[2] rules=rows frame=hsides bordercolor=#c1cdd8>
      <tr bgcolor=$arr_color_tabla[0]>";
@@ -157,7 +169,7 @@ $orden = $_GET['orden'];
 	   echo"<td align=right width=15%><font color=$arr_color_texto[0] size=2><b>&nbsp;EX. FISICA</a></font></td>";
 	 echo"</tr>";
 	   $c=0;
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 	     echo"<tr bgcolor=$arr_color_tabla[1]>";
          echo"<td align=left><font size=2 color=$arr_color_texto[1]>
 		         <font size=2 color=$arr_color_texto[1]>&nbsp;$row[cod_item]</font>
@@ -175,8 +187,8 @@ $orden = $_GET['orden'];
    	     echo"</tr>";
 		 $c=$c+1;
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 echo"
 <INPUT TYPE=hidden NAME=id_inv VALUE=$id_inv>
@@ -189,7 +201,7 @@ echo"<center><INPUT TYPE=submit NAME=accion VALUE=Guardar class=boton></center>"
 echo"</form>";
 echo"<center> <font size=2 color=$arr_color_texto[2]>"; 
 //echo paginacion($total, $pp, $st,$pag);
-echo paginacion_orden($total, $pp, $st, $pag,$orderby,$orden);
+echo paginacion_orden($total2, $pp, $st, $pag,$orderby,$orden);
 echo"</font></center>";  
 
    }

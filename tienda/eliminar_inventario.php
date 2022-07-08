@@ -8,28 +8,28 @@
    $link=Conectarse("carioca"); 
    $id=$_GET['id_inv'];
 
-   $result=mysql_query("SELECT estado FROM inventario WHERE id_inv='$id'",$link);
-   $row=mysql_fetch_array($result);
+   $result=mysqli_query($link,"SELECT estado FROM inventario WHERE id_inv='$id'");
+   $row=mysqli_fetch_array($result);
    $estado=$row[0];
    
    if($estado=="Pendiente"){
-   mysql_query("DELETE FROM inventario WHERE id_inv='$id'",$link);   
-   mysql_query("DELETE FROM inventario_aux WHERE id_inv='$id'",$link);   
+   mysqli_query($link,"DELETE FROM inventario WHERE id_inv='$id'");
+   mysqli_query($link,"DELETE FROM inventario_aux WHERE id_inv='$id'");
    }else {
-   mysql_query("DELETE FROM inventario WHERE id_inv='$id'",$link);      
-   	$get = mysql_query("SELECT cod_item, existencia_sis
+   mysqli_query($link,"DELETE FROM inventario WHERE id_inv='$id'");
+   	$get = mysqli_query($link,"SELECT cod_item, existencia_sis
 						FROM inventario_aux 
 						WHERE id_inv=$id");
-   mysql_query("DELETE FROM inventario_aux WHERE id_inv='$id'",$link);      
+   mysqli_query($link,"DELETE FROM inventario_aux WHERE id_inv='$id'");
     						
-	while($row=mysql_fetch_array($get)){
-	  $arr_cod[]=$row[cod_item];
-	  $arr_exsis[]=$row[existencia_sis];
+	while($row=mysqli_fetch_array($get)){
+	  $arr_cod[]=$row['cod_item'];
+	  $arr_exsis[]=$row['existencia_sis'];
 	}
     $tam_arr=count($arr_cod);
 	
       for($i=0;$i<$tam_arr;$i++){
-      mysql_query("UPDATE item SET existencia=$arr_exsis[$i] WHERE cod_item='$arr_cod[$i]'",$link); 
+      mysqli_query($link,"UPDATE item SET existencia=$arr_exsis[$i] WHERE cod_item='$arr_cod[$i]'");
       }
 
    }
@@ -39,7 +39,7 @@
 <br>
 <?=container_mensaje("Inventario eliminado")?>
 <br> 
-<?
+<?php
    echo"
    <table align=center>
    <tr>

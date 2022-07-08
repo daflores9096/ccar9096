@@ -32,24 +32,28 @@ $limit=0;
 
    for($i=0;$i<$numreg;$i++){
    $tmp="id$i";
-   $cod=$_GET[$tmp];
-     if($cod!=""){
-      $arr_cod[]=$cod;
-	  $limit=$limit+1;
-     }else {}
+   if (isset($_GET[$tmp])){
+       $cod=$_GET[$tmp];
+       if($cod!=""){
+           $arr_cod[]=$cod;
+           $limit=$limit+1;
+       }else {}
+   }
+
+
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT nom_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT nom_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_item[]=$row[0];
    }
 
    for($i=0;$i<$limit;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT unid_item FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT unid_item FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_unid[]=$row[0];
    }
 
@@ -86,15 +90,15 @@ $limit=0;
 <TABLE border="0" cellpadding="1" cellspacing="2" width="70%"> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">CODIGO:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="id_inv" SIZE="10" MAXLENGTH="10" value="<? echo"$id_inv"; ?>" readonly></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="id_inv" SIZE="10" MAXLENGTH="10" value="<?php echo"$id_inv"; ?>" readonly></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">FECHA LEVANTAMIENTO:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="fecha_lev" SIZE="10" MAXLENGTH="10" value="<? echo"$fecha_lev"; ?>" readonly></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="fecha_lev" SIZE="10" MAXLENGTH="10" value="<?php echo"$fecha_lev"; ?>" readonly></td>
 </TR> 
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">DESCRIPCION:</TD> 
-   <td colspan="2"><INPUT TYPE="text" NAME="descripcion" SIZE="40" MAXLENGTH="40" value="<? echo"$descripcion"; ?>" readonly></td>
+   <td colspan="2"><INPUT TYPE="text" NAME="descripcion" SIZE="40" MAXLENGTH="40" value="<?php echo"$descripcion"; ?>" readonly></td>
 </TR> 
 
 </TABLE>
@@ -128,7 +132,7 @@ $limit=0;
 	     echo"<td><INPUT TYPE=text NAME=cant$c SIZE=15 MAXLENGTH=10 value=0.00 align=right></td>";
    	     echo"</tr>";
 	   }
-       mysql_close($link);
+       mysqli_close($link);
        echo"</table><br>";
 echo"
 <INPUT TYPE=hidden NAME=id_inv VALUE=$id_inv>

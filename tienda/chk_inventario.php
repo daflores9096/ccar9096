@@ -22,8 +22,8 @@
 //capturar las existencias del sistema
    for($i=0;$i<$numreg;$i++){
    $tmp=$arr_cod[$i];
-   $get=mysql_query("SELECT existencia FROM item WHERE cod_item='$tmp'",$link);
-   $row=mysql_fetch_array($get);
+   $get=mysqli_query($link,"SELECT existencia FROM item WHERE cod_item='$tmp'");
+   $row=mysqli_fetch_array($get);
    $arr_exis[]=$row[0];
    }
 //capturar las existencias reales del inventario fisico
@@ -40,12 +40,10 @@
    //$qry = "insert into inventario (id_inv, fecha_lev, descripcion, fecha_ap, estado) values ('$id_inv', '$fecha_lev', '$descripcion', '$fecha_ap', '$estado')";
    ///echo $qry;
    ///exit();
-   mysql_query("insert into inventario (id_inv, fecha_lev, descripcion, estado) 
-   values ('$id_inv', '$fecha_lev', '$descripcion', '$estado')",$link); 
+   mysqli_query($link,"insert into inventario (id_inv, fecha_lev, descripcion, estado) values ('$id_inv', '$fecha_lev', '$descripcion', '$estado')");
 
    for($i=0;$i<$numreg;$i++){
-   mysql_query("insert into inventario_aux (id_inv, cod_item, existencia_inv, existencia_sis, diferencia) 
-   values ('$id_inv', '$arr_cod[$i]', '$arr_cant[$i]', '$arr_exis[$i]', '$arr_dif[$i]')",$link); 
+   mysqli_query($link,"insert into inventario_aux (id_inv, cod_item, existencia_inv, existencia_sis, diferencia) values ('$id_inv', '$arr_cod[$i]', '$arr_cant[$i]', '$arr_exis[$i]', '$arr_dif[$i]')");
    }
 
 ?>
