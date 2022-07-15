@@ -18,14 +18,14 @@
    $deta_item=$_GET["deta_item"];
    $ide=$_GET["ide"];
     
-   mysql_query("UPDATE item SET cod_item='$id', nom_item='$nom_item', unid_item='$unid_item', precio_item='$precio_item', caja_item='$caja_item', exi_max='$exi_max', existencia='$existencia', exi_min='$exi_min', deta_item='$deta_item' 
-                WHERE cod_item='$ide'",$link);  
+   mysqli_query($link,"UPDATE item SET cod_item='$id', nom_item='$nom_item', unid_item='$unid_item', precio_item='$precio_item', caja_item='$caja_item', exi_max='$exi_max', existencia='$existencia', exi_min='$exi_min', deta_item='$deta_item' 
+                WHERE cod_item='$ide'");
 ?>
 <?=body_container_ini("","770","550")?>
 <br>
 <?=container_mensaje("Registro modificado")?>
 <br> 
-<?
+<?php
    echo"
    <table align=center>
    <tr>
