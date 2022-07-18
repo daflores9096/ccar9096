@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include('acceso_db.php'); // incluímos los datos de conexión a la BD
+    include('./acceso_db.php'); // incluímos los datos de conexión a la BD
 ?>
 <!doctype html>
 <html lang="en">
@@ -32,9 +32,9 @@
     <?php                
                 } else {
                     $usuario_nombre = $_SESSION['usuario_nombre'];
-                    $usuario_clave = mysql_real_escape_string($_POST["usuario_clave"]);
+                    $usuario_clave = mysqli_real_escape_string($link,$_POST["usuario_clave"]);
                     $usuario_clave = md5($usuario_clave); // encriptamos la nueva contraseña con md5
-                    $sql = mysql_query("UPDATE usuarios SET usuario_clave='".$usuario_clave."' WHERE usuario_nombre='".$usuario_nombre."'");
+                    $sql = mysqli_query($link,"UPDATE usuarios SET usuario_clave='".$usuario_clave."' WHERE usuario_nombre='".$usuario_nombre."'");
                     if($sql) {
     ?>                    
                         <html>

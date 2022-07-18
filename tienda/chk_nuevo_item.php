@@ -17,8 +17,8 @@
    $exi_min=$_GET['exi_min'];
    $deta_item=$_GET['deta_item'];   
 if ($cod_item!=""){
-$get=mysql_query("SELECT * FROM item WHERE cod_item='$cod_item'",$link);
-$result=mysql_fetch_array($get);
+$get=mysqli_query($link,"SELECT * FROM item WHERE cod_item='$cod_item'");
+$result=mysqli_fetch_array($get);
 }else {}
 ?>
 <?=body_container_ini("","770","550")?>
@@ -50,8 +50,8 @@ echo"
 ";
 } else {
 
-   mysql_query("insert into item (cod_item, nom_item, unid_item, precio_item, caja_item, exi_max, existencia, exi_min, deta_item) 
-   values ('$cod_item','$nom_item','$unid_item', '$precio_item', '$caja_item', '$exi_max', '$existencia', '$exi_min', '$deta_item')",$link); 
+   mysqli_query($link,"insert into item (cod_item, nom_item, unid_item, precio_item, caja_item, exi_max, existencia, exi_min, deta_item) 
+   values ('$cod_item','$nom_item','$unid_item', '$precio_item', '$caja_item', '$exi_max', '$existencia', '$exi_min', '$deta_item')");
 
 ?>
 <?=container_mensaje("ITEM creado... ¿Desea crear otro?")?>
@@ -73,5 +73,5 @@ echo"
    ";
 ?> 
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
-<? } ?>
+<?php } ?>
 <?=body_container_fin()?>

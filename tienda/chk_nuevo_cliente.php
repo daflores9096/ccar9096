@@ -56,7 +56,7 @@ echo"
    values ('$cod_cli','$nom_cli','$contacto_sec', '$dire_cli', '$dire_sec', '$ciudad_cli', '$tel_cli', '$tel_sec', '$email_cli', '$desc_cli')");
 
 ?>
-<?=container_mensaje("Cliente Añadido... ¿Desea añadir otro?")?>
+<?=container_mensaje("Cliente agregado... ¿Desea agregar otro?")?>
 <br>
 <?php
 echo"

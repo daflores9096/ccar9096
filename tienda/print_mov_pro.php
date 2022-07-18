@@ -55,7 +55,7 @@ echo"
 
 <table border=0 cellpadding=0 cellspacing=0>
 <tr><td><FONT SIZE=5><b>CASA CARIOCA Ltda.</b></FONT></td></tr>
-<tr><td><FONT SIZE=3><b>Manzana 4, Galpón28</b></FONT></td></tr>
+<tr><td><FONT SIZE=3><b>Manzana 4, Galp&oacute;n28</b></FONT></td></tr>
 <tr><td>&nbsp;</td></tr>
 <tr><td><FONT SIZE=3><b>Movimiento del proveedor: $row[1]</b></FONT></td></tr>
 </table>

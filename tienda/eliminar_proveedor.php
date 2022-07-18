@@ -19,14 +19,14 @@
    $link=Conectarse("carioca"); 
    $id=$_GET['cod_pro'];
    
-   mysql_query("DELETE FROM proveedor WHERE cod_pro='$id'",$link);   
+   mysqli_query($link,"DELETE FROM proveedor WHERE cod_pro='$id'");
 ?>
 
 <?=body_container_ini("","770","550")?>
 <br>
 <?=container_mensaje("Proveedor eliminado")?>
 <br> 
-<?
+<?php
    echo"
    <table align=center>
    <tr>

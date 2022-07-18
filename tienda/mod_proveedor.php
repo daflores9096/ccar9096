@@ -16,8 +16,8 @@
    $desc_pro=$_GET['desc_pro'];   
    $ide=$_GET['ide'];
 
-   mysql_query("UPDATE proveedor SET cod_pro='$cod_pro', nom_pro='$nom_pro', contacto_sec='$contacto_sec', dire_pro='$dire_pro', ciudad_pro='$ciudad_pro', tel_pro='$tel_pro', tel_sec='$tel_sec', email_pro='$email_pro', desc_pro='$desc_pro' 
-   				WHERE cod_pro=$ide",$link); 
+   mysqli_query($link,"UPDATE proveedor SET cod_pro='$cod_pro', nom_pro='$nom_pro', contacto_sec='$contacto_sec', dire_pro='$dire_pro', ciudad_pro='$ciudad_pro', tel_pro='$tel_pro', tel_sec='$tel_sec', email_pro='$email_pro', desc_pro='$desc_pro' 
+   				WHERE cod_pro=$ide");
 
 ?>
 <?=body_container_ini("","770","0")?>

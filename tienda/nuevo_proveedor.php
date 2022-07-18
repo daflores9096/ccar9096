@@ -1,5 +1,4 @@
-<html> 
-<head> 
+<head>
 <title>CREAR NUEVO PROVEEDOR</title> 
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
 </head> 
@@ -9,8 +8,8 @@ include("../lib/lib_consulta.php");
 include("../lib/lib_formato.php");
 
 $link=Conectarse("carioca"); 
-$result=mysql_query("SELECT max(cod_pro) AS elmax FROM proveedor",$link);
-$last_id_inv=mysql_fetch_array($result);
+$result=mysqli_query($link,"SELECT max(cod_pro) AS elmax FROM proveedor");
+$last_id_inv=mysqli_fetch_array($result);
 $cod_pro=$last_id_inv[0] + 1;
 
 ?>
@@ -47,7 +46,7 @@ $cod_pro=$last_id_inv[0] + 1;
 <TABLE border="0" align="center" cellpadding="1" cellspacing="2" width="90%"> 
 <TR> 
    <TD bgcolor="#FFFFFF" width="30%"><B><font size="2" color="#5e8cb5">CODIGO:</TD> 
-   <TD colspan="2"><INPUT TYPE="text" NAME="cod_pro" SIZE="15" MAXLENGTH="10" value="<? echo"$cod_pro"; ?>"></TD> 
+   <TD colspan="2"><INPUT TYPE="text" NAME="cod_pro" SIZE="15" MAXLENGTH="10" value="<?php echo"$cod_pro"; ?>"></TD>
 </TR>
 <TR> 
    <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">NOMBRE PROVEEDOR:</TD> 

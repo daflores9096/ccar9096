@@ -3,7 +3,7 @@
 <title>Bienvenido</title>
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css"><script type="text/javascript" language="JavaScript1.2" src="stm31.js"></script>
 </head>
-<?
+<?php
 include("../lib/lib_formato.php");
 ?>
 <?=body_container_ini("","770","500")?>

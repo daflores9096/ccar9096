@@ -18,9 +18,9 @@ echo"
 
 <table border=0 cellpadding=0 cellspacing=0 width=100%>
 <tr><td><FONT SIZE=5><b>CASA CARIOCA Ltda.</b></FONT></td></tr>
-<tr><td><FONT SIZE=3><b>Manzana 4, Galpón28</b></FONT></td></tr>
+<tr><td><FONT SIZE=3><b>Manzana 4, Galp&oacute;n28</b></FONT></td></tr>
 <tr><td align=center><FONT SIZE=4><b>EN EFECTIVO</b></FONT></td></tr>
-<tr><td align=center><b>(En dólares)</b></td></tr>
+<tr><td align=center><b>(En d&oacute;lares)</b></td></tr>
 </table>
 
 </td></tr>
@@ -96,7 +96,7 @@ $arr_cod[]=$row1[0];
 <form method="get" name="form1" action="chk_formula.php">
 <TABLE border="0" cellpadding="0" cellspacing="0" width="70%"> 
 <TR> 
-   <TD bgcolor="#FFFFFF"><b><font size="2" color="#000000">&nbsp;Nº COMPRA:</TD> 
+   <TD bgcolor="#FFFFFF"><b><font size="2" color="#000000">&nbsp;N. COMPRA:</TD>
    <td colspan="2"><?php echo"$cod_fac"; ?></td>
 </TR> 
 <TR> 

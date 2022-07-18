@@ -4,8 +4,8 @@ include('../shield/acceso_db.php');
 if(isset($_SESSION['usuario_nombre'])) {
 ?>
 <html> 
-<head> 
-<title>Salidas por Venta</title> 
+<head>
+<title>Salidas por Venta</title>
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
 <script> 
 function uno(src,color_entrada) { 
@@ -167,7 +167,7 @@ $row=mysqli_fetch_array($get);
 	       echo"<td align=$lado><font size=2 color=red>$row[$cam]&nbsp;</font></td>";
 		   }else if(($cam=="existencia") && ($row['existencia']>=$row['exi_max'])){
 	       echo"<td align=$lado><font size=2 color=green>$row[$cam]</font></td>";
-		   }else  echo"<td align=$lado><font size=2 color=$arr_color_texto[1]>".utf8_encode($row[$cam])."&nbsp;&nbsp;</font></td>";
+		   }else  echo"<td align=$lado><font size=2 color=$arr_color_texto[1]>".$row[$cam]."&nbsp;&nbsp;</font></td>";
 	     }
 /////////////////////icono de funcion////////////////////////
 		 $id=$var_envio;

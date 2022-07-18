@@ -72,14 +72,22 @@ $pag_ini="anular_venta.php";
 $tam_pag=30;
 
 $link=Conectarse("$db");
-$get=mysql_query("SELECT * FROM $tabla",$link);
+$get=mysqli_query($link,"SELECT * FROM $tabla");
 $num=count($arr_campos);
-$total=mysql_num_rows($get);
+$total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
-$row=mysql_fetch_array($get);
+$orden = "DESC";
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+}
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+}
+
+$lado = "left";
+$cont = 0;
+$row=mysqli_fetch_array($get);
    if (!$total){
    echo"
    <table align=center bgcolor=$arr_color_tabla[2]>
@@ -110,7 +118,7 @@ $row=mysql_fetch_array($get);
 	  }	  
 
 //llamada a base de datos
-	$get = mysql_query('select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
+	$get = mysqli_query($link,'select * from '.$tabla.' order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
 	echo"<TABLE CELLSPACING=0 CELLPADDING=0 align=center width=97% bgcolor=$arr_color_tabla[2] rules=cols frame=vsides bordercolor=#c1cdd8>
      <tr bgcolor=$arr_color_tabla[0]>";
      for($c=0;$c<$num;$c++){
@@ -126,7 +134,7 @@ $row=mysql_fetch_array($get);
      echo"<td width=5%><font color=$arr_color_texto[2] size=1><b>$funcion</font></td>";
 	 echo"</tr>";
 	   
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 		 for($i=0;$i<$num;$i++){
@@ -182,8 +190,8 @@ $row=mysql_fetch_array($get);
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 
 echo"<center> <font size=2 color=$arr_color_texto[2]>"; 
@@ -195,7 +203,6 @@ echo"</font></center><br>";
 ?>
 <!-- fin -->
 <br>
-<?//=container_lista_fin()?>
 <br>
 </td>
 </tr>

@@ -17,8 +17,8 @@
    $desc_cli=$_GET['desc_cli'];   
    $ide=$_GET['ide'];
 
-   mysql_query("UPDATE cliente SET cod_cli='$cod_cli', nom_cli='$nom_cli', contacto_sec='$contacto_sec', dire_cli='$dire_cli', dire_sec='$dire_sec', ciudad_cli='$ciudad_cli', tel_cli='$tel_cli', tel_sec='$tel_sec', email_cli='$email_cli', desc_cli='$desc_cli' 
-   				WHERE cod_cli=$ide",$link); 
+   mysqli_query($link,"UPDATE cliente SET cod_cli='$cod_cli', nom_cli='$nom_cli', contacto_sec='$contacto_sec', dire_cli='$dire_cli', dire_sec='$dire_sec', ciudad_cli='$ciudad_cli', tel_cli='$tel_cli', tel_sec='$tel_sec', email_cli='$email_cli', desc_cli='$desc_cli' 
+   				WHERE cod_cli=$ide");
 
 ?>
 <?=body_container_ini("","770","550")?>

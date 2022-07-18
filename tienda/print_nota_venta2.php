@@ -22,7 +22,7 @@ echo"
 
 <table cellpadding=0 cellspacing=0 width=100%>
 <tr><td align=right><FONT SIZE=4><b>CASA CARIOCA Ltda.&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2>Manzana 6, Galpón 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></td></tr>
+<tr><td align=right><FONT SIZE=2>Manzana 6, Galp&oacute;n 30&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></td></tr>
 <tr><td align=right><FONT SIZE=2>Zona Franca - Iquique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></td></tr>
 <tr><td align=right><FONT SIZE=2>Tel: 00 - 56 - 57 - 2473515&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></td></tr>
 <!-- <tr><td align=right><FONT SIZE=2>Fax: 00 - 56 - 57 - 475525&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</FONT></td></tr> -->

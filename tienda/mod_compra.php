@@ -46,8 +46,8 @@
    }
 
 /////////////////////////////fase 1: eliminar registro//////////////////////////////
-   $get1=mysql_query("SELECT cod_item,cant_fac FROM compra_aux WHERE cod_fac='$id'",$link);   
-   while($row1=mysql_fetch_array($get1)){
+   $get1=mysqli_query($link,"SELECT cod_item,cant_fac FROM compra_aux WHERE cod_fac='$id'");
+   while($row1=mysqli_fetch_array($get1)){
    $arr_codigos[]=$row1['cod_item'];
    $arr_cantidades[]=$row1['cant_fac'];
    }
@@ -55,32 +55,32 @@
    for($i=0;$i<$numreg;$i++){
    $codi=$arr_codigos[$i];
    $tmp=$arr_cantidades[$i];
-   mysql_query("UPDATE item SET existencia=existencia - $tmp 
-                WHERE cod_item='$codi'",$link);  
+   mysqli_query($link,"UPDATE item SET existencia=existencia - $tmp 
+                WHERE cod_item='$codi'");
    }   
-   mysql_query("DELETE FROM compra WHERE cod_fac='$id'",$link);   
-   mysql_query("DELETE FROM compra_aux WHERE cod_fac='$id'",$link);   
-   mysql_query("DELETE FROM movimiento WHERE cod_mov='$id'",$link);        
+   mysqli_query($link,"DELETE FROM compra WHERE cod_fac='$id'");
+   mysqli_query($link,"DELETE FROM compra_aux WHERE cod_fac='$id'");
+   mysqli_query($link,"DELETE FROM movimiento WHERE cod_mov='$id'");
    
 ///////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////fase 2: reinsertar el registro modificado///////////////////////////
-   mysql_query("insert into compra (cod_fac, fecha_fac, cod_pro, nom_pro, total_fac) 
-   values ('$cod_fac', '$fecha_fac', '$cod_pro', '$nom_pro', '$total_fac')",$link); 
+   mysqli_query($link,"insert into compra (cod_fac, fecha_fac, cod_pro, nom_pro, total_fac) 
+   values ('$cod_fac', '$fecha_fac', '$cod_pro', '$nom_pro', '$total_fac')");
 
    for($i=0;$i<$numreg;$i++){
-   mysql_query("insert into compra_aux (cod_fac, cod_item, cant_fac, precio_uni, precio_ven, importe_fac) 
-   values ('$cod_fac', '$arr_cod[$i]', '$arr_cant[$i]', '$arr_cos[$i]', '$arr_ven[$i]', '$arr_imp[$i]')",$link); 
+   mysqli_query($link,"insert into compra_aux (cod_fac, cod_item, cant_fac, precio_uni, precio_ven, importe_fac) 
+   values ('$cod_fac', '$arr_cod[$i]', '$arr_cant[$i]', '$arr_cos[$i]', '$arr_ven[$i]', '$arr_imp[$i]')");
    }
 /////////////////////registrar modificacion en existencia////////////////////////   
    for($i=0;$i<$numreg;$i++){
    $codi=$arr_cod[$i];
    $tmp=$arr_cant[$i];
-   mysql_query("UPDATE item SET existencia=existencia + $tmp 
-                WHERE cod_item='$codi'",$link);  
+   mysqli_query($link,"UPDATE item SET existencia=existencia + $tmp 
+                WHERE cod_item='$codi'");
 //////////////registrar movimiento///////////////////
-   mysql_query("INSERT INTO movimiento (tipo_mov, cod_mov, cod_item, fecha_mov, cod_cli_pro, nom_cli_pro, entrada, salida) 
-   values ('C', '$cod_fac', '$codi', '$fecha_fac', '$cod_pro', '$nom_pro', '$tmp','0')",$link); 
+   mysqli_query($link,"INSERT INTO movimiento (tipo_mov, cod_mov, cod_item, fecha_mov, cod_cli_pro, nom_cli_pro, entrada, salida) 
+   values ('C', '$cod_fac', '$codi', '$fecha_fac', '$cod_pro', '$nom_pro', '$tmp','0')");
 ////////////////////////////////////////////////////////////////////////////////////////////////				
    }
 
@@ -88,15 +88,15 @@ if (!$cod){
 header("Location:./modificar_datos_compra.php?cod_fac=$cod_fac");
 }else {
 ////////////item añadido////////////////////////
-   mysql_query("insert into compra_aux (cod_fac, cod_item, cant_fac, precio_uni, precio_ven, importe_fac) 
-   values ('$cod_fac', '$cod', '$cant', '$cos', '$ven', '$imp')",$link); 
+   mysqli_query($link,"insert into compra_aux (cod_fac, cod_item, cant_fac, precio_uni, precio_ven, importe_fac) 
+   values ('$cod_fac', '$cod', '$cant', '$cos', '$ven', '$imp')");
 
 ///////////////////registrar existencia de item añadido/////////////////////////
-   mysql_query("UPDATE item SET existencia=existencia + $cant 
-                WHERE cod_item='$cod'",$link);  
+   mysqli_query($link,"UPDATE item SET existencia=existencia + $cant 
+                WHERE cod_item='$cod'");
 //////////////registrar movimiento item añadido///////////////////
-   mysql_query("INSERT INTO movimiento (tipo_mov, cod_mov, cod_item, fecha_mov, cod_cli_pro, nom_cli_pro, entrada, salida) 
-   values ('V', '$cod_fac', '$cod', '$fecha_fac', '$cod_pro', '$nom_pro', '$cant','0')",$link); 
+   mysqli_query($link,"INSERT INTO movimiento (tipo_mov, cod_mov, cod_item, fecha_mov, cod_cli_pro, nom_cli_pro, entrada, salida) 
+   values ('V', '$cod_fac', '$cod', '$fecha_fac', '$cod_pro', '$nom_pro', '$cant','0')");
 };
 
 header("Location:./modificar_datos_compra.php?cod_fac=$cod_fac");

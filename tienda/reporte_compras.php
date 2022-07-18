@@ -17,15 +17,18 @@ function dos(src,color_default) {
 include("../lib/conexion.php"); 
 include("../lib/lib_consulta.php"); 
 include("../lib/lib_formato.php");
-$fechamin=$_GET['fecha_min'];
-$fechamax=$_GET['fecha_max'];
-if ($fechamin=="" || fechamax=="") {
-$fechamin=date("20y-m-d");
-$fechamax=date("20y-m-d");
+
+if (isset($_GET['fecha_min']) && isset($_GET['fecha_max'])){
+    $fechamin=$_GET['fecha_min'];
+    $fechamax=$_GET['fecha_max'];
+} else {
+    $fechamin=date("Y-m-01");
+    $fechamax=date("Y-m-d");
 }
+
 $ultimafecha=date("20y-m-d");
 ?> 
-<?
+<?php
 $db="carioca";
 $tabla="compra";
 $orderby="cod_fac";
@@ -37,7 +40,7 @@ $var_envio="cod_fac";
 $pag_proceso=".php";
 $icono="../img/b_detalle.png";
 $funcion="";
-$pag_ini="reporte_ventas.php";
+$pag_ini="reporte_compras.php";
 $tam_pag=100;
 $link=Conectarse($db);
 ?>
@@ -54,7 +57,7 @@ stm_ai("p0i0",[0,"    << INICIO    ","","",-1,-1,0,"../index.php","_self","","",
 //stm_aix("p0i1","p0i0",[0,"     INICIO     ","","",-1,-1,0,"../index.php"]);
 stm_aix("p0i2","p0i0",[0,"IMPRIMIR","","",-1,-1,0,"","_self","","","","",0,0,0,"arrow_r.gif","arrow_r.gif",7,7]);
 stm_bpx("p1","p0",[1,4,0,0,3,4,0,0,100,"",-2,"",-2,90,0,0,"#000000","#F1F2EE"]);
-stm_aix("p1i0","p0i0",[0,"Reporte de compras","","",-1,-1,0,"print_rep_compras.php?fecha_min=<? echo $fechamin; ?>&fecha_max=<? echo $fechamax; ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
+stm_aix("p1i0","p0i0",[0,"Reporte de compras","","",-1,-1,0,"print_rep_compras.php?fecha_min=<?php echo $fechamin; ?>&fecha_max=<?php echo $fechamax; ?>","_blank","","","","",0,0,0,"","",0,0,0,0,1,"#ffffff",0,"#ffffff",0,"","",3,3,0,0,"#FFFFF7","#000000","#5e8cb5","#F3AC6C","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
 stm_ep();
 stm_ep();
 stm_em();
@@ -77,9 +80,9 @@ stm_em();
 </TABLE>
 </form>
 
-<?
-$get1 = mysql_query("SELECT * FROM $tabla WHERE fecha_fac>='$fechamin' AND fecha_fac<='$fechamax'",$link);
-$row1=mysql_fetch_array($get1);
+<?php
+$get1 = mysqli_query($link,"SELECT * FROM $tabla WHERE fecha_fac>='$fechamin' AND fecha_fac<='$fechamax'");
+$row1=mysqli_fetch_array($get1);
 ?>
 <table width="22%" bgcolor="#5E8CB5">
 <tr bgcolor="#FFFFFF">
@@ -94,21 +97,29 @@ $row1=mysql_fetch_array($get1);
 <!-- inicio -->
 <table width="97%" align=center>
 <tr>
-<td bgcolor="#ffffff" width="60%" colspan="3">&nbsp<? echo"<font color=5e8cb5 size=2>REPORTE DE COMPRAS del dia <b>$fechamin</b> al dia <b>$fechamax</b></b></font>"; ?></td>
+<td bgcolor="#ffffff" width="60%" colspan="3">&nbsp<?php echo"<font color=5e8cb5 size=2>REPORTE DE COMPRAS del dia <b>$fechamin</b> al dia <b>$fechamax</b></b></font>"; ?></td>
 <td width=40%>&nbsp;</td>
 </tr>
 </table>
 <br>
-<?
+<?php
 $link=Conectarse("$db");
-$get=mysql_query("SELECT * FROM $tabla",$link);
+$get=mysqli_query($link,"SELECT * FROM $tabla WHERE fecha_fac>='$fechamin' AND fecha_fac<='$fechamax' ORDER BY 'cod_fac'");
 $num=count($arr_campos);
-$total=mysql_num_rows($get);
+$total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
-$row=mysql_fetch_array($get);
+$orden = "DESC";
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+}
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+}
+
+$lado = "left";
+$cont = 0;
+$row=mysqli_fetch_array($get);
    if (!$total){
    echo"
    <table align=center bgcolor=$arr_color_tabla[2]>
@@ -139,7 +150,7 @@ $row=mysql_fetch_array($get);
 	  }	  
 
 //llamada a base de datos
-	$get = mysql_query("SELECT * FROM $tabla WHERE fecha_fac>='$fechamin' AND fecha_fac<='$fechamax' ORDER BY '$orderby' $orden");
+	$get = mysqli_query($link,"SELECT * FROM $tabla WHERE fecha_fac>='$fechamin' AND fecha_fac<='$fechamax' ORDER BY '$orderby' $orden");
 	echo"<TABLE CELLSPACING=0 CELLPADDING=0 align=center width=97% bgcolor=$arr_color_tabla[2] rules=cols frame=vsides bordercolor=#c1cdd8>
      <tr bgcolor=$arr_color_tabla[0]>";
      for($c=0;$c<$num;$c++){
@@ -155,7 +166,7 @@ $row=mysql_fetch_array($get);
 //	     echo"<td width=5%><font color=$arr_color_texto[2] size=1><b>$funcion</font></td>";
 	 echo"</tr>";
 	   
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 		 for($i=0;$i<$num;$i++){
 		 $cam=$arr_campos[$i];
@@ -176,8 +187,8 @@ $row=mysql_fetch_array($get);
 /////////////////////////////////////////////*/
    	     echo"</tr>";
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 
 echo"<center> <font size=2 color=$arr_color_texto[2]>"; 

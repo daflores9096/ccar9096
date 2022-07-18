@@ -8,8 +8,8 @@
    $link=Conectarse("carioca"); 
    $id=$_GET['cod_fac'];
    
-   $get1=mysql_query("SELECT cod_item,cant_fac FROM compra_aux WHERE cod_fac='$id'",$link);   
-   while($row1=mysql_fetch_array($get1)){
+   $get1=mysqli_query($link,"SELECT cod_item,cant_fac FROM compra_aux WHERE cod_fac='$id'");
+   while($row1=mysqli_fetch_array($get1)){
    $arr_cod[]=$row1['cod_item'];
    $arr_cant[]=$row1['cant_fac'];
    }
@@ -18,13 +18,13 @@
    for($i=0;$i<$numreg;$i++){
    $cod=$arr_cod[$i];
    $tmp=$arr_cant[$i];
-   mysql_query("UPDATE item SET existencia=existencia - $tmp 
-                WHERE cod_item='$cod'",$link);  
+   mysqli_query($link,"UPDATE item SET existencia=existencia - $tmp 
+                WHERE cod_item='$cod'");
    }   
    
-   mysql_query("DELETE FROM compra WHERE cod_fac='$id'",$link);   
-   mysql_query("DELETE FROM compra_aux WHERE cod_fac='$id'",$link);   
-   mysql_query("DELETE FROM movimiento WHERE cod_mov='$id'",$link);     
+   mysqli_query($link,"DELETE FROM compra WHERE cod_fac='$id'");
+   mysqli_query($link,"DELETE FROM compra_aux WHERE cod_fac='$id'");
+   mysqli_query($link,"DELETE FROM movimiento WHERE cod_mov='$id'");
    
    
 ?>
@@ -33,7 +33,7 @@
 <br>
 <?=container_mensaje("Compra Anulada")?>
 <br>
-<?
+<?php
    echo"
    <table align=center>
    <tr>

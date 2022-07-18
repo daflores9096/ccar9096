@@ -41,6 +41,7 @@ $num=count($arr_campos);
 $total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
+$orden = 'ASC';
 
 if (isset($_GET['orderby'])){
     $orderby= $_GET['orderby'];

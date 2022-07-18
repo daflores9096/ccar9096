@@ -7,6 +7,7 @@ if(isset($_SESSION['usuario_nombre'])) {
 <head> 
 <title>Entradas por Compra</title> 
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
+    <meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
 <script> 
 function uno(src,color_entrada) { 
     src.bgColor=color_entrada;src.style.cursor="";
@@ -15,6 +16,7 @@ function dos(src,color_default) {
     src.bgColor=color_default;src.style.cursor="default"; 
 } 
 </script>
+
 </head> 
 <?php 
 include("../lib/conexion.php"); 

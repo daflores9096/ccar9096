@@ -45,12 +45,12 @@ include('acceso_db.php'); // incluimos el archivo de conexión a la Base de Dato
 	            echo "El email ingresado no es válido. <a href='javascript:history.back();'>Reintentar</a>";
 	        }else {
 	            // "limpiamos" los campos del formulario de posibles códigos maliciosos
-	            $usuario_nombre = mysql_real_escape_string($_POST['usuario_nombre']);
-	            $usuario_clave = mysql_real_escape_string($_POST['usuario_clave']);
-	            $usuario_email = mysql_real_escape_string($_POST['usuario_email']);
+	            $usuario_nombre = mysqli_real_escape_string($link,$_POST['usuario_nombre']);
+	            $usuario_clave = mysqli_real_escape_string($link,$_POST['usuario_clave']);
+	            $usuario_email = mysqli_real_escape_string($link,$_POST['usuario_email']);
 	            // comprobamos que el usuario ingresado no haya sido registrado antes
-	            $sql = mysql_query("SELECT usuario_nombre FROM usuarios WHERE usuario_nombre='".$usuario_nombre."'");
-	            if(mysql_num_rows($sql) > 0) {
+	            $sql = mysqli_query($link,"SELECT usuario_nombre FROM usuarios WHERE usuario_nombre='".$usuario_nombre."'");
+	            if(mysqli_num_rows($sql) > 0) {
             ?>            
                         <html>
                         <body style="background: #ededef">
@@ -66,7 +66,7 @@ include('acceso_db.php'); // incluimos el archivo de conexión a la Base de Dato
 	            }else {
 	                $usuario_clave = md5($usuario_clave); // encriptamos la contraseña ingresada con md5
 	                // ingresamos los datos a la BD
-	                $reg = mysql_query("INSERT INTO usuarios (usuario_nombre, usuario_clave, usuario_email, usuario_freg) VALUES ('".$usuario_nombre."', '".$usuario_clave."', '".$usuario_email."', NOW())");
+	                $reg = mysqli_query($link,"INSERT INTO usuarios (usuario_nombre, usuario_clave, usuario_email, usuario_freg) VALUES ('".$usuario_nombre."', '".$usuario_clave."', '".$usuario_email."', NOW())");
 	                if($reg) {
             ?>                
                         <html>

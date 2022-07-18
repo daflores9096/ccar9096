@@ -17,8 +17,8 @@
    $email_pro=$_GET['email_pro'];   
    $desc_pro=$_GET['desc_pro'];   
    
-$get=mysql_query("SELECT * FROM proveedor WHERE cod_pro=$cod_pro",$link);
-$result=mysql_fetch_array($get);
+$get=mysqli_query($link,"SELECT * FROM proveedor WHERE cod_pro=$cod_pro");
+$result=mysqli_fetch_array($get);
 ?>
 <?=body_container_ini("","770","0")?>
 <br>
@@ -51,11 +51,11 @@ echo"
    //$qry = "insert into proveedor (cod_pro, nom_pro, contacto_sec, dire_pro, ciudad_pro, tel_pro, tel_sec, email_pro, desc_pro) values ('$cod_pro','$nom_pro','$contacto_sec', '$dire_pro', '$ciudad_pro', '$tel_pro', '$tel_sec', '$email_pro', '$desc_pro')";
    //echo $qry;
    //exit();
-   mysql_query("insert into proveedor (cod_pro, nom_pro, contacto_sec, dire_pro, ciudad_pro, tel_pro, tel_sec, email_pro, desc_pro) 
-   values ('$cod_pro','$nom_pro','$contacto_sec', '$dire_pro', '$ciudad_pro', '$tel_pro', '$tel_sec', '$email_pro', '$desc_pro')",$link); 
+   mysqli_query($link,"insert into proveedor (cod_pro, nom_pro, contacto_sec, dire_pro, ciudad_pro, tel_pro, tel_sec, email_pro, desc_pro) 
+   values ('$cod_pro','$nom_pro','$contacto_sec', '$dire_pro', '$ciudad_pro', '$tel_pro', '$tel_sec', '$email_pro', '$desc_pro')");
 
 ?>
-<?=container_mensaje("Proveedor Añadido... ¿Desea añadir otro?")?>
+<?=container_mensaje("Proveedor Agregado... ¿Desea agregar otro?")?>
 <br>
 <?php
 echo"
@@ -74,5 +74,5 @@ echo"
    ";
 ?> 
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
-<? } ?>
+<?php } ?>
 <?=body_container_fin()?>
