@@ -202,7 +202,7 @@ echo"<td ALIGN=CENTER width='50%' bgcolor='#FFFFFF'><A href='ver_venta.php?cod_f
 <table width="20%">
 <?php
     echo"<tr><td>&nbsp;</td></tr>";
-    echo"<tr><td colspan=6 bgcolor=#ffffff><font size=2 color=#5E8CB5><b>Añadir item: <img src=../img/b_lista.gif onclick=JavaScript:PopWindowItem() title='Seleccionar de Lista'></b></font></td></tr>";		 
+    echo"<tr><td colspan=6 bgcolor=#ffffff><font size=2 color=#5E8CB5><b>Agregar item: <img src=../img/b_lista.gif onclick=JavaScript:PopWindowItem() title='Seleccionar de Lista'></b></font></td></tr>";
     ////////////////fila de incremento de item/////////////////////
     echo"<tr bgcolor=$arr_color_tabla[1]>";
     echo"<td><INPUT TYPE=text NAME=cod SIZE=10></font></td>";		 

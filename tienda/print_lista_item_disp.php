@@ -35,11 +35,11 @@ echo"
 <td>
 
 <table cellpadding=0 cellspacing=0 width=100%>
-<tr><td align=right><FONT SIZE=4><b>CASA CARIOCA Ltda.&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Manzana 4, Galpón28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Zona Franca Iquique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-473515&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-475525&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
+<tr><td align=right><FONT SIZE=4><b>CASA CARIOCA Ltda.&nbsp;&nbsp;</b></FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Manzana 4, Galp&oacute;n28&nbsp;&nbsp;</b></FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Zona Franca Iquique</b>&nbsp;&nbsp;</FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-473515</b>&nbsp;&nbsp;</FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-475525</b>&nbsp;&nbsp;</FONT></td></tr>
 </table>
 
 </td></tr>
@@ -52,14 +52,21 @@ echo"
 
 
 $link=Conectarse("$db");
-$get=mysql_query("SELECT * FROM $tabla",$link);
+$get=mysqli_query($link,"SELECT * FROM $tabla");
 $num=count($arr_campos);
-$total=mysql_num_rows($get);
+$total=mysqli_num_rows($get);
 $pag="$pag_ini?st=";
 $pp=$tam_pag;
-$orderby= $_GET['orderby'];
-$orden = $_GET['orden'];
-$row=mysql_fetch_array($get);
+$orden = "ASC";
+if (isset($_GET['orderby'])){
+    $orderby= $_GET['orderby'];
+}
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+}
+$lado="left";
+$cont=0;
+$row=mysqli_fetch_array($get);
    if (!$total){
    echo"
    <table align=center bgcolor=$arr_color_tabla[2]>
@@ -90,7 +97,7 @@ $row=mysql_fetch_array($get);
 	  }	  
 	  
 //llamada a base de datos
-	$get = mysql_query('select * from '.$tabla.' where existencia>0 order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
+	$get = mysqli_query($link,'select * from '.$tabla.' where existencia>0 order by '.$orderby.' '.$orden.' limit '.$st.','.$pp);
 	echo"<TABLE border=1 CELLSPACING=0 CELLPADDING=0 align=center width=90% bgcolor=$arr_color_tabla[2] rules=rows frame=hsides bordercolor=#000000>
      <tr bgcolor=$arr_color_tabla[0]>";
      for($c=0;$c<$num;$c++){
@@ -104,7 +111,7 @@ $row=mysql_fetch_array($get);
 //     echo"<td width=5%><font color=$arr_color_texto[2] size=1><b>$funcion</font></td>";
 	 echo"</tr>";
 	   
-	   while($row = mysql_fetch_array($get)) {
+	   while($row = mysqli_fetch_array($get)) {
 		 if (($cont%2)==0){
 	     echo"<tr bgcolor=$arr_color_tabla[1] onMouseOver=uno(this,'FEE3D3'); onMouseOut=dos(this,'$arr_color_tabla[1]');>";
 		 for($i=0;$i<$num;$i++){
@@ -150,8 +157,8 @@ $row=mysql_fetch_array($get);
          $cont=$cont+1;
          }
 	   }
-       mysql_free_result($get);
-       mysql_close($link);
+       mysqli_free_result($get);
+       mysqli_close($link);
        echo"</table><br>";
 
 echo"<center> <font size=2 color=$arr_color_texto[2]>"; 

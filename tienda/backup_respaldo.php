@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('shield/acceso_db.php');
+include('../shield/acceso_db.php');
 if(isset($_SESSION['usuario_nombre'])) {
 ?>
 <html>
@@ -15,7 +15,7 @@ $fecha_back=date("20y-m-d");
 ?>
 <?=body_container_ini("","770","0")?>
 <?php
-if($restaura){
+if(isset($restaura)){
 echo"<br><br><br><br>";
 ?>
 <?=container_mensaje(" Restaurar base de datos CARIOCA:

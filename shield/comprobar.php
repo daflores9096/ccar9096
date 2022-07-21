@@ -31,7 +31,7 @@ if(isset($_POST['enviar'])) { // comprobamos que se hayan enviado los datos del 
             $nivel_acceso = $row['nivel_acceso'];
         }
 
-        if($id_user != '') {
+        if(isset($id_user) != '') {
             $_SESSION['usuario_id'] = $id_user; // creamos la sesion "usuario_id" y le asignamos como valor el campo usuario_id
             $_SESSION['usuario_nombre'] = $name_user; // creamos la sesion "usuario_nombre" y le asignamos como valor el campo usuario_nombre
             $_SESSION['nivel_acceso'] = $nivel_acceso;

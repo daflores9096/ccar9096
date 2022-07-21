@@ -35,11 +35,11 @@ echo"
 <td>
 
 <table cellpadding=0 cellspacing=0 width=100%>
-<tr><td align=right><FONT SIZE=4><b>CASA CARIOCA Ltda.&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Manzana 4, Galpón28&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Zona Franca Iquique&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-473515&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
-<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-475525&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></FONT></td></tr>
+<tr><td align=right><FONT SIZE=4><b>CASA CARIOCA Ltda.</b>&nbsp;&nbsp;</FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Manzana 4, Galp&oacute;n28</b>&nbsp;&nbsp;</FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Zona Franca Iquique</b>&nbsp;&nbsp;</FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-473515</b>&nbsp;&nbsp;</FONT></td></tr>
+<tr><td align=right><FONT SIZE=2><b>Tel: 00-56-57-475525</b>&nbsp;&nbsp;</FONT></td></tr>
 </table>
 
 </td></tr>

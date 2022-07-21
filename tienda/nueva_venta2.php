@@ -201,7 +201,7 @@ $arr_color_texto=array("ffffff","000000","c4b6ff");
 <TABLE border="0" cellpadding="1" cellspacing="2" width="70%"> 
     <tr><td colspan="2">&nbsp;</td></tr>
 <TR> 
-   <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">Nº VENTA:</TD> 
+   <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">N. VENTA:</TD>
    <td colspan="2"><input type="text" name="cod_fac" size="10" maxlength="10" required="" value="<?php echo $cod_fac; ?>"></td>
 </TR> 
 <TR> 
@@ -225,7 +225,7 @@ $arr_color_texto=array("ffffff","000000","c4b6ff");
 <table width="20%">
 <?php
 echo"<tr><td>&nbsp;</td></tr>";
-echo"<tr><td colspan=7 bgcolor=#ffffff><font size=2 color=#5E8CB5><b>Añadir artículos: <img src=../img/b_lista.gif onclick=JavaScript:PopWindowItem() title='Seleccionar de Lista'></b></font></td></tr>";		 
+echo"<tr><td colspan=7 bgcolor=#ffffff><font size=2 color=#5E8CB5><b>Agregar art&iacute;culos: <img src=../img/b_lista.gif onclick=JavaScript:PopWindowItem() title='Seleccionar de Lista'></b></font></td></tr>";
 ////////////////fila de incremento de item/////////////////////
 echo"<tr bgcolor=$arr_color_tabla[1]>";
 echo"<td><INPUT TYPE=text NAME=cod SIZE=10></font></td>";		 

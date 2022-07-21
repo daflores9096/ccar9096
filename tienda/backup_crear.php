@@ -13,8 +13,8 @@ $dbhost = 'localhost';  // Servidor base de datos
 $dbuname = '';          // Usuario base de datos
 $dbpass = '';           // Contraseña base de datos
 $fecha=time();          // Fecha actual
-$llamada='"C:\wamp\mysql\bin\mysqldump.exe"';
-$salida='C:/wamp/www/carioca/respaldo/';
+$llamada='"C:\xampp73\mysql\bin\mysqldump.exe"';
+$salida='"C:\xampp73\www\carioca\respaldo\"';
 
 if(!$id){
 $filename="carioca";

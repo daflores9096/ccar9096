@@ -1,5 +1,4 @@
-<html> 
-<head> 
+<head>
 <title>SALIDA POR VENTA</title> 
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
 <script type="text/javascript" language="JavaScript" src="calendario/calendar.js"></script>
@@ -81,7 +80,7 @@ $id_inv=$last_id_inv[0] + 1;
 <FORM name="form2" ACTION="generar_factura_venta.php" method="get"> 
 <TABLE border="0" cellpadding="1" cellspacing="2" width="90%"> 
 <TR> 
-   <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">Nº VENTA:</TD> 
+   <TD bgcolor="#FFFFFF"><b><font size="2" color="#5e8cb5">Nï¿½ VENTA:</TD> 
    <td colspan="2"><INPUT TYPE="text" NAME="cod_fac" SIZE="10" MAXLENGTH="10"></td>
 </TR> 
 <TR> 

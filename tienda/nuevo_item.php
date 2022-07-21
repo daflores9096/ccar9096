@@ -1,5 +1,4 @@
-<html> 
-<head> 
+<head>
 <title>Registro Nuevo ITEM</title> 
 <link rel="STYLESHEET" type="text/css" href="../estilos/estilo1.css">
 </head> 
@@ -15,7 +14,7 @@ $link=Conectarse("carioca");
 <td width="80%" align="left"><font color="#5E8CB5" size="2"><b>CREAR NUEVO ITEM</b></font></td>
 <td align="right" width="15%">
 <form method="post" action="showall_item.php">
-<input type="submit" value="Volver a lista artículos" class="boton">
+<input type="submit" value="Volver a lista art&iacute;culos" class="boton">
 </form>
 </td>
 <td align="right" width="15%">
